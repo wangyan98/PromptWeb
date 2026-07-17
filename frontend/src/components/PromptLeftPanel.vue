@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { computed, inject } from 'vue'
 import type { PromptDetail } from '@/api/prompts'
 import StatementList from './StatementList.vue'
 
-defineProps<{
+const props = defineProps<{
   prompt: PromptDetail
 }>()
 
@@ -10,13 +11,28 @@ const emit = defineEmits<{
   'statement-click': [id: number]
   'word-click': [id: number]
 }>()
+
+const highlightedWordId = inject<{ value: number | null }>('highlightedWordId')!
+
+const highlightedWord = computed(() => {
+  const id = highlightedWordId?.value
+  if (!id) return null
+  return props.prompt.words.find(w => w.id === id) || null
+})
 </script>
 
 <template>
   <div class="left-panel">
     <div class="full-text-section">
       <div class="section-label">英文 Prompt</div>
-      <p class="full-text-en">{{ prompt.text_en_full }}</p>
+      <p class="full-text-en">
+        <template v-if="highlightedWord">
+          <span>{{ prompt.text_en_full.slice(0, highlightedWord.position_start ?? 0) }}</span>
+          <span class="word-highlight-inline">{{ highlightedWord.word_en }}</span>
+          <span>{{ prompt.text_en_full.slice((highlightedWord.position_end ?? 0)) }}</span>
+        </template>
+        <template v-else>{{ prompt.text_en_full }}</template>
+      </p>
     </div>
     <div class="full-text-section" v-if="prompt.text_zh_full">
       <div class="section-label">中文翻译</div>
@@ -72,5 +88,13 @@ const emit = defineEmits<{
   height: 1px;
   background: var(--color-border);
   margin: var(--space-lg) 0;
+}
+
+.word-highlight-inline {
+  background: var(--color-highlight);
+  color: var(--color-highlight-text);
+  padding: 1px 3px;
+  border-radius: 3px;
+  font-weight: 600;
 }
 </style>

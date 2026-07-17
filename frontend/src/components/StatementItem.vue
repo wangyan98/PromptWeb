@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, onMounted } from 'vue'
 import type { StatementResponse, PromptWordResponse } from '@/api/prompts'
+import { useStatementTypeStore } from '@/stores/statementTypes'
 
 const props = defineProps<{
   statement: StatementResponse
@@ -15,13 +16,17 @@ const emit = defineEmits<{
 const highlightedStatementId = inject<{ value: number | null }>('highlightedStatementId')!
 const highlightedWordId = inject<{ value: number | null }>('highlightedWordId')!
 
+const typeStore = useStatementTypeStore()
+
+onMounted(() => {
+  typeStore.load()
+})
+
 const isHighlighted = computed(() => highlightedStatementId?.value === props.statement.id)
 
-const typeName = computed(() => {
-  // Type name will be resolved from store — for now return placeholder
-  return ''
-})
-const typeColor = computed(() => '#4fc3f7')
+const typeInfo = computed(() => typeStore.getType(props.statement.type_id))
+const typeName = computed(() => typeInfo.value?.name || '未分类')
+const typeColor = computed(() => typeInfo.value?.color || '#4fc3f7')
 
 function onWordClick(wordId: number, event: Event) {
   event.stopPropagation()
