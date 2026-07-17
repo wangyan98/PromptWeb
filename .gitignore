@@ -1,0 +1,8 @@
+node_modules/
+pg-data/
+minio-data/
+.env
+__pycache__/
+*.pyc
+.venv/
+dist/
