@@ -25,3 +25,7 @@ class StatementResponse(BaseModel):
     words: list["PromptWordResponse"] = []
 
     model_config = {"from_attributes": True}
+
+
+from app.schemas.prompt_word import PromptWordResponse  # noqa: E402
+StatementResponse.model_rebuild()

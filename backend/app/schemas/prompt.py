@@ -44,3 +44,9 @@ class PromptResponse(BaseModel):
     images: list["PromptImageResponse"] = []
 
     model_config = {"from_attributes": True}
+
+
+from app.schemas.statement import StatementResponse  # noqa: E402
+from app.schemas.prompt_word import PromptWordResponse  # noqa: E402
+from app.schemas.prompt_image import PromptImageResponse  # noqa: E402
+PromptResponse.model_rebuild()

@@ -55,10 +55,11 @@ class PromptService:
         db.add(prompt)
         await db.commit()
         await db.refresh(prompt)
-        return prompt
+        # Re-fetch with eager-loaded relations so Pydantic can serialize
+        return await self.get_prompt(db, prompt.id)
 
     async def update_prompt(self, db: AsyncSession, prompt_id: int, data: PromptUpdate) -> Prompt | None:
-        prompt = await self.get_prompt(db, prompt_id)
+        prompt = await db.get(Prompt, prompt_id)
         if not prompt:
             return None
         update_data = data.model_dump(exclude_unset=True)
@@ -66,7 +67,7 @@ class PromptService:
             setattr(prompt, key, value)
         await db.commit()
         await db.refresh(prompt)
-        return prompt
+        return await self.get_prompt(db, prompt.id)
 
     async def delete_prompt(self, db: AsyncSession, prompt_id: int) -> bool:
         prompt = await self.get_prompt(db, prompt_id)
