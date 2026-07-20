@@ -5,6 +5,8 @@ const route = useRoute()
 
 const navItems = [
   { label: '展示', to: '/prompts', icon: '📋' },
+  { label: '语句本', to: '/statements', icon: '📖' },
+  { label: '单词本', to: '/words', icon: '📝' },
   { label: '管理', to: '/manage', icon: '⚙️' },
 ]
 </script>

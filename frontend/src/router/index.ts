@@ -8,6 +8,16 @@ const router = createRouter({
       redirect: '/prompts',
     },
     {
+      path: '/statements',
+      name: 'statements',
+      component: () => import('@/views/StatementBookPage.vue'),
+    },
+    {
+      path: '/words',
+      name: 'words',
+      component: () => import('@/views/WordBookPage.vue'),
+    },
+    {
       path: '/prompts',
       name: 'display',
       component: () => import('@/views/DisplayPage.vue'),
