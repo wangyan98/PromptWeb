@@ -1,9 +1,22 @@
 #!/usr/bin/env python3
-"""Parse a prompt data file (xlsx/csv/json) into a clean JSON array.
+"""Parse a prompt data file (xlsx/csv/json) — file-reading only, no column detection.
 
-Usage: python parse_file.py <file_path>
-Output: JSON array printed to stdout. Each element has keys:
-  title, text_en_full, text_zh_full, category, statements
+All intelligence (column mapping, key identification) comes from Claude.
+This script is a dumb I/O tool with two modes:
+
+  --inspect <file>     Read file, print a compact profile: headers, sample rows, row count.
+                       Claude reads this output and decides which columns are which.
+
+  --extract <file>     Read file, extract rows using column indices provided via CLI flags:
+                       --en N --zh M --title P --cat Q --sheet NAME
+                       Outputs clean JSON array to stdout.
+
+Usage:
+  python parse_file.py --inspect data.xlsx
+      → prints metadata JSON with headers and first 5 rows
+
+  python parse_file.py --extract data.xlsx --en 1 --zh 2 --title 0
+      → prints prompt JSON array using Claude's column choices
 """
 
 import json
@@ -14,125 +27,10 @@ import re
 from pathlib import Path
 
 
-def detect_xlsx_data_sheet(sheets_data):
-    """Pick the sheet most likely to contain prompt data.
+# ── shared file reading ────────────────────────────────────────────
 
-    Heuristic: the sheet with the most rows, skipping sheets whose name
-    contains '封面','说明','公式','模板','template','cover','summary'.
-    """
-    skip_keywords = ['封面', '说明', '公式', '模板', 'template', 'cover', 'summary', 'intro', 'readme']
-    candidates = {
-        name: rows
-        for name, rows in sheets_data.items()
-        if not any(kw in name.lower() for kw in skip_keywords)
-    }
-    if not candidates:
-        candidates = sheets_data
-    best = max(candidates, key=lambda n: len(candidates[n]))
-    return best
-
-
-def detect_column(headers, rows_sample):
-    """Map columns to fields based on header names and cell content heuristics.
-
-    Returns dict with keys: title_col, en_col, zh_col, cat_col (each is an index or None).
-    """
-    mapping = {'title_col': None, 'en_col': None, 'zh_col': None, 'cat_col': None}
-
-    for idx, h in enumerate(headers):
-        h_str = str(h).strip().lower() if h else ''
-        # English prompt detection
-        if any(kw in h_str for kw in ['英文', 'english', '完整提示词', 'en', 'prompt']):
-            if mapping['en_col'] is None:
-                mapping['en_col'] = idx
-        # Chinese / title detection
-        if any(kw in h_str for kw in ['中文', 'chinese', '场景', '主题', '标题', 'title', 'zh']):
-            if '完整' in h_str and '英' in h_str:
-                continue  # this is the English column, already mapped
-            # If header has title-like keywords, it's a title column
-            is_title_col = any(kw in h_str for kw in ['场景', '主题', '标题', 'title', '名称'])
-            if is_title_col:
-                if mapping['title_col'] is None:
-                    mapping['title_col'] = idx
-                continue  # don't also set this as zh_col
-            if mapping['zh_col'] is None:
-                mapping['zh_col'] = idx
-        # Category detection
-        if any(kw in h_str for kw in ['类别', 'category', 'cat', '分类']):
-            mapping['cat_col'] = idx
-        # Number / 编号 column — skip
-        if any(kw in h_str for kw in ['编号', '序号', 'id']):
-            continue
-
-    # Fallback: content-based detection using sample rows
-    for idx in range(len(headers)):
-        sample_texts = []
-        for row in rows_sample:
-            if idx < len(row) and row[idx]:
-                sample_texts.append(str(row[idx])[:200])
-
-        if not sample_texts:
-            continue
-
-        avg_len = sum(len(t) for t in sample_texts) / len(sample_texts)
-        has_en_keywords = any(
-            kw in t.lower()
-            for t in sample_texts
-            for kw in ['generate', 'epic', 'unreal engine', 'cinematic', '8k', 'photography', 'render']
-        )
-        has_chinese = any(bool(re.search(r'[一-鿿]', t)) for t in sample_texts)
-
-        # Long English text = English prompt column
-        if mapping['en_col'] is None and avg_len > 100 and has_en_keywords:
-            mapping['en_col'] = idx
-        # Short Chinese text (1-30 chars typical) = title
-        elif mapping['title_col'] is None and has_chinese and avg_len < 80:
-            mapping['title_col'] = idx
-        # Long Chinese text = full Chinese translation
-        elif mapping['zh_col'] is None and has_chinese and avg_len > 80:
-            mapping['zh_col'] = idx
-        # Short labels (2-8 chars typical) = category
-        elif mapping['cat_col'] is None and avg_len < 10 and not has_en_keywords:
-            mapping['cat_col'] = idx
-
-    # Defensive: if title and zh point to the same column, it's a title, not a full translation
-    if mapping['title_col'] is not None and mapping['zh_col'] == mapping['title_col']:
-        mapping['zh_col'] = None
-
-    return mapping
-
-
-def split_en_into_statements(en_text):
-    """Split English prompt text into statements by comma/semicolon boundaries.
-
-    Preserves whitespace between delimiters. Short trailing specs like
-    '16:9' are merged into the previous segment.
-    Returns list of {text_en, sort_order} dicts.
-    """
-    # Split on commas and semicolons, keep whitespace in segments
-    parts = [p for p in re.split(r'[,;]', en_text) if p.strip()]
-
-    # Merge short trailing specs (aspect ratios, resolution, duration)
-    merged = []
-    for part in parts:
-        stripped = part.strip()
-        if merged and re.match(r'^\d+:\d+$|^\d+[kK]$|^\d+s$', stripped):
-            merged[-1] = merged[-1] + ', ' + stripped
-        else:
-            merged.append(part)  # preserve original whitespace
-
-    statements = []
-    for i, text in enumerate(merged):
-        statements.append({
-            'text_en': text,
-            'sort_order': i + 1,
-        })
-
-    return statements
-
-
-def parse_xlsx(filepath):
-    """Parse .xlsx/.xls file, return list of prompt dicts with pre-split statements."""
+def read_xlsx_raw(filepath):
+    """Read xlsx, return (sheet_name, headers, all_rows)."""
     try:
         import openpyxl
     except ImportError:
@@ -150,196 +48,275 @@ def parse_xlsx(filepath):
         if rows:
             sheets_data[sn] = rows
 
-    data_sheet = detect_xlsx_data_sheet(sheets_data)
-    rows = sheets_data[data_sheet]
+    if not sheets_data:
+        print("Error: no data found in any sheet", file=sys.stderr)
+        sys.exit(1)
+
+    # Pick data sheet: the one with most rows, skipping obvious meta sheets
+    skip_kw = ['封面', '说明', '公式', '模板', 'template', 'cover', 'summary', 'intro', 'readme']
+    candidates = {n: r for n, r in sheets_data.items()
+                  if not any(kw in n.lower() for kw in skip_kw)}
+    if not candidates:
+        candidates = sheets_data
+    best_sheet = max(candidates, key=lambda n: len(candidates[n]))
+    rows = candidates[best_sheet]
 
     if len(rows) < 2:
-        print(f"Error: sheet '{data_sheet}' has no data rows", file=sys.stderr)
+        print(f"Error: sheet '{best_sheet}' has no data rows", file=sys.stderr)
         sys.exit(1)
 
     headers = rows[0]
-    sample = rows[1:min(6, len(rows))]
-    mapping = detect_column(headers, sample)
-
-    if mapping['en_col'] is None:
-        print("Error: could not find English prompt column", file=sys.stderr)
-        print(f"Headers detected: {headers}", file=sys.stderr)
-        sys.exit(1)
-
-    prompts = []
-    for row in rows[1:]:  # skip header
-        if all(not c or not str(c).strip() for c in row):
-            continue
-
-        def get(col):
-            if col is not None and col < len(row):
-                return str(row[col]).strip()
-            return ''
-
-        en_text = get(mapping['en_col'])
-        if not en_text:
-            continue
-
-        zh_text = get(mapping['zh_col'])
-        title = get(mapping['title_col'])
-        category = get(mapping['cat_col'])
-
-        # If title wasn't found but zh_col has short Chinese, use that as title
-        if not title and zh_text and len(zh_text) < 40:
-            title = zh_text
-
-        # Pre-split English text into statements by punctuation
-        statements = split_en_into_statements(en_text)
-
-        prompts.append({
-            'title': title or '',
-            'text_en_full': en_text,
-            'text_zh_full': zh_text,
-            'category': category or '',
-            'statements': statements,
-        })
-
-    print(f"Parsed sheet '{data_sheet}': {len(prompts)} rows", file=sys.stderr)
-    return prompts
+    data_rows = rows[1:]
+    return best_sheet, sheets_data, headers, data_rows
 
 
-def parse_csv(filepath):
-    """Parse .csv file, return list of prompt dicts with pre-split statements."""
+def read_csv_raw(filepath):
+    """Read csv, return (None, None, headers, all_rows)."""
     encodings = ['utf-8', 'utf-8-sig', 'gbk', 'gb2312', 'latin-1']
     rows = None
     for enc in encodings:
         try:
             with open(filepath, 'r', encoding=enc) as f:
-                reader = csv.reader(f)
-                rows = list(reader)
+                rows = list(csv.reader(f))
             break
         except (UnicodeDecodeError, UnicodeError):
             continue
-
     if rows is None:
-        print("Error: could not decode CSV file with any encoding", file=sys.stderr)
+        print("Error: could not decode CSV with any encoding", file=sys.stderr)
         sys.exit(1)
-
     if len(rows) < 2:
         print("Error: CSV has no data rows", file=sys.stderr)
         sys.exit(1)
-
-    headers = rows[0]
-    sample = rows[1:min(6, len(rows))]
-    mapping = detect_column(headers, sample)
-
-    if mapping['en_col'] is None:
-        print("Error: could not find English prompt column", file=sys.stderr)
-        sys.exit(1)
-
-    prompts = []
-    for row in rows[1:]:
-        if all(not c or not c.strip() for c in row):
-            continue
-
-        def get(col):
-            if col is not None and col < len(row):
-                return str(row[col]).strip()
-            return ''
-
-        en_text = get(mapping['en_col'])
-        if not en_text:
-            continue
-
-        zh_text = get(mapping['zh_col'])
-        title = get(mapping['title_col'])
-
-        if not title and zh_text and len(zh_text) < 40:
-            title = zh_text
-
-        statements = split_en_into_statements(en_text)
-
-        prompts.append({
-            'title': title or '',
-            'text_en_full': en_text,
-            'text_zh_full': zh_text,
-            'category': get(mapping['cat_col']),
-            'statements': statements,
-        })
-
-    print(f"Parsed CSV: {len(prompts)} rows", file=sys.stderr)
-    return prompts
+    return None, None, rows[0], rows[1:]
 
 
-def parse_json_file(filepath):
-    """Parse .json file, return list of prompt dicts with pre-split statements.
-
-    Normalizes known key names to: title, text_en_full, text_zh_full, category.
-    """
+def read_json_raw(filepath):
+    """Read json, return normalized rows. JSON is its own header — no inspect needed."""
     with open(filepath, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
     if isinstance(data, dict):
-        # Could be wrapped: {"prompts": [...]} or single object
         for key in ['prompts', 'data', 'items']:
             if key in data and isinstance(data[key], list):
                 data = data[key]
                 break
         else:
             data = [data]
-
     if not isinstance(data, list):
-        print("Error: JSON must be an array or object with an array field", file=sys.stderr)
+        print("Error: JSON must be an array or object with array field", file=sys.stderr)
         sys.exit(1)
 
-    # Normalize keys: map common variants
-    key_map = {
-        'title': ['title', 'name', '主题', '标题', '名称', '场景主题'],
-        'text_en_full': ['text_en_full', 'text_en', 'en', 'english', '英文', '完整提示词', 'prompt', '提示词'],
-        'text_zh_full': ['text_zh_full', 'text_zh', 'zh', 'chinese', '中文', '翻译', '中文提示词'],
-        'category': ['category', 'cat', '类别', '分类', 'tag'],
-    }
-
-    prompts = []
-    for item in data:
-        prompt = {}
-        for field, aliases in key_map.items():
-            for alias in aliases:
-                if alias in item:
-                    val = item[alias]
-                    prompt[field] = str(val).strip() if val else ''
-                    break
-            if field not in prompt:
-                prompt[field] = ''
-
-        if not prompt['text_en_full']:
-            continue
-
-        prompt['statements'] = split_en_into_statements(prompt['text_en_full'])
-        prompts.append(prompt)
-
-    print(f"Parsed JSON: {len(prompts)} rows", file=sys.stderr)
-    return prompts
+    # For JSON, we just list all unique top-level keys
+    keys = set()
+    for item in data[:10]:
+        if isinstance(item, dict):
+            keys.update(item.keys())
+    return list(keys), data
 
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python parse_file.py <file_path>", file=sys.stderr)
-        sys.exit(1)
+# ── inspect mode ────────────────────────────────────────────────────
 
-    filepath = sys.argv[1]
-    if not os.path.exists(filepath):
-        print(f"Error: file not found: {filepath}", file=sys.stderr)
-        sys.exit(1)
-
+def cmd_inspect(filepath):
+    """Print a compact profile Claude can read to decide column mapping."""
     ext = Path(filepath).suffix.lower()
 
+    if ext == '.json':
+        keys, data = read_json_raw(filepath)
+        samples = []
+        for item in data[:5]:
+            if isinstance(item, dict):
+                samples.append({k: str(v)[:120] if v else '' for k, v in item.items()})
+        result = {
+            'format': 'json',
+            'total_rows': len(data),
+            'keys': sorted(keys),
+            'sample_rows': samples,
+        }
+        json.dump(result, sys.stdout, ensure_ascii=False, indent=2)
+        return
+
     if ext in ('.xlsx', '.xls'):
-        prompts = parse_xlsx(filepath)
+        sheet, all_sheets, headers, data_rows = read_xlsx_raw(filepath)
+        other_sheets = [s for s in all_sheets if s != sheet]
     elif ext == '.csv':
-        prompts = parse_csv(filepath)
-    elif ext == '.json':
-        prompts = parse_json_file(filepath)
+        sheet, all_sheets, headers, data_rows = read_csv_raw(filepath)
+        other_sheets = []
     else:
         print(f"Error: unsupported file type: {ext}. Supported: .xlsx, .xls, .csv, .json", file=sys.stderr)
         sys.exit(1)
 
+    samples = []
+    for row in data_rows[:5]:
+        samples.append([str(c)[:200] if c else '' for c in row])
+
+    result = {
+        'format': ext.lstrip('.'),
+        'sheet': sheet,
+        'other_sheets': other_sheets if all_sheets else [],
+        'total_rows': len(data_rows),
+        'headers': [str(h).strip() if h else '' for h in headers],
+        'sample_rows': samples,
+    }
+    json.dump(result, sys.stdout, ensure_ascii=False, indent=2)
+
+
+# ── extract mode ────────────────────────────────────────────────────
+
+def split_en_into_statements(en_text):
+    """Split English prompt by commas/semicolons, preserving whitespace."""
+    parts = [p for p in re.split(r'[,;]', en_text) if p.strip()]
+    merged = []
+    for part in parts:
+        stripped = part.strip()
+        if merged and re.match(r'^\d+:\d+$|^\d+[kK]$|^\d+s$', stripped):
+            merged[-1] = merged[-1] + ', ' + stripped
+        else:
+            merged.append(part)
+    return [{'text_en': text, 'sort_order': i + 1} for i, text in enumerate(merged)]
+
+
+def cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name):
+    """Extract rows using Claude-chosen column indices, output prompt JSON."""
+    ext = Path(filepath).suffix.lower()
+
+    if ext == '.json':
+        _, data = read_json_raw(filepath)
+        prompts = []
+        for item in data:
+            if not isinstance(item, dict):
+                continue
+            keys = sorted(item.keys())
+
+            def pick(idx, field_keys):
+                if idx is not None and 0 <= idx < len(field_keys):
+                    val = item.get(field_keys[idx], '')
+                    return str(val).strip() if val else ''
+                # try positional index against keys list
+                if idx is not None and idx < len(keys):
+                    val = item.get(keys[idx], '')
+                    return str(val).strip() if val else ''
+                return ''
+
+            en_text = pick(en_idx, []) or item.get('text_en_full', item.get('text_en', item.get('prompt', '')))
+            if not en_text:
+                continue
+            zh_text = pick(zh_idx, []) or item.get('text_zh_full', item.get('text_zh', item.get('chinese', '')))
+            title = pick(title_idx, []) or item.get('title', item.get('name', ''))
+            category = pick(cat_idx, []) or item.get('category', item.get('cat', ''))
+
+            prompts.append({
+                'title': str(title).strip() if title else '',
+                'text_en_full': str(en_text).strip(),
+                'text_zh_full': str(zh_text).strip() if zh_text else '',
+                'category': str(category).strip() if category else '',
+                'statements': split_en_into_statements(str(en_text)),
+            })
+
+        json.dump(prompts, sys.stdout, ensure_ascii=False, indent=2)
+        return
+
+    # xlsx / csv
+    if ext in ('.xlsx', '.xls'):
+        actual_sheet, all_sheets, headers, data_rows = read_xlsx_raw(filepath)
+        if sheet_name and sheet_name in all_sheets:
+            rows = all_sheets[sheet_name]
+            if len(rows) >= 2:
+                headers = rows[0]
+                data_rows = rows[1:]
+    elif ext == '.csv':
+        _, _, headers, data_rows = read_csv_raw(filepath)
+    else:
+        print(f"Error: unsupported file type: {ext}", file=sys.stderr)
+        sys.exit(1)
+
+    def get_cell(row, idx):
+        if idx is not None and 0 <= idx < len(row):
+            return str(row[idx]).strip()
+        return ''
+
+    prompts = []
+    for row in data_rows:
+        if all(not c or not str(c).strip() for c in row):
+            continue
+        en_text = get_cell(row, en_idx)
+        if not en_text:
+            continue
+        zh_text = get_cell(row, zh_idx)
+        title = get_cell(row, title_idx)
+        category = get_cell(row, cat_idx)
+
+        if not title and zh_text and len(zh_text) < 40:
+            title = zh_text
+
+        prompts.append({
+            'title': title or '',
+            'text_en_full': en_text,
+            'text_zh_full': zh_text,
+            'category': category or '',
+            'statements': split_en_into_statements(en_text),
+        })
+
     json.dump(prompts, sys.stdout, ensure_ascii=False, indent=2)
+
+
+# ── main ─────────────────────────────────────────────────────────────
+
+def main():
+    if len(sys.argv) < 2:
+        print(__doc__, file=sys.stderr)
+        sys.exit(1)
+
+    mode = sys.argv[1]
+
+    if mode == '--inspect':
+        if len(sys.argv) < 3:
+            print("Usage: parse_file.py --inspect <file_path>", file=sys.stderr)
+            sys.exit(1)
+        filepath = sys.argv[2]
+        if not os.path.exists(filepath):
+            print(f"Error: file not found: {filepath}", file=sys.stderr)
+            sys.exit(1)
+        cmd_inspect(filepath)
+
+    elif mode == '--extract':
+        # Parse named arguments
+        en_idx = zh_idx = title_idx = cat_idx = None
+        sheet_name = None
+        filepath = None
+        i = 2
+        while i < len(sys.argv):
+            arg = sys.argv[i]
+            if arg == '--en' and i + 1 < len(sys.argv):
+                en_idx = int(sys.argv[i + 1]); i += 2
+            elif arg == '--zh' and i + 1 < len(sys.argv):
+                zh_idx = int(sys.argv[i + 1]); i += 2
+            elif arg == '--title' and i + 1 < len(sys.argv):
+                title_idx = int(sys.argv[i + 1]); i += 2
+            elif arg == '--cat' and i + 1 < len(sys.argv):
+                cat_idx = int(sys.argv[i + 1]); i += 2
+            elif arg == '--sheet' and i + 1 < len(sys.argv):
+                sheet_name = sys.argv[i + 1]; i += 2
+            elif not arg.startswith('--'):
+                filepath = arg; i += 1
+            else:
+                i += 1
+
+        if not filepath:
+            print("Error: no file path provided", file=sys.stderr)
+            sys.exit(1)
+        if not os.path.exists(filepath):
+            print(f"Error: file not found: {filepath}", file=sys.stderr)
+            sys.exit(1)
+        if en_idx is None:
+            print("Error: --en <index> is required", file=sys.stderr)
+            sys.exit(1)
+
+        cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name)
+
+    else:
+        print(f"Unknown mode: {mode}", file=sys.stderr)
+        print(__doc__, file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == '__main__':

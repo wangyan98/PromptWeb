@@ -11,20 +11,53 @@ Analyze text-to-image prompt data files — semantic splitting, Chinese-English 
 
 This skill follows a 4-step pipeline. Run each step in order.
 
-### Step 1: Parse the file
+### Step 1: Inspect and extract the file
 
-Run the parse script on the user's file path:
+**This is a two-phase step where Claude does the column mapping.**
+
+#### Phase 1a: Inspect the file structure
 
 ```bash
-python skills/prompt-analyzer/scripts/parse_file.py "<file_path>"
+python skills/prompt-analyzer/scripts/parse_file.py --inspect "<file_path>"
 ```
 
-This outputs a JSON array of prompt rows with keys: `title`, `text_en_full`, `text_zh_full`, `category`.
+This prints a compact metadata JSON — format, sheet name, headers, first 5 sample rows, total row count. It does NO column detection or mapping. That's your job.
+
+**You (Claude) must read this output and decide:**
+- Which column index contains the English prompt text? (required)
+- Which column index contains the Chinese translation? (optional)
+- Which column index contains the title/short name? (optional)
+- Which column index contains the category? (optional)
+- For xlsx files with multiple sheets, does the auto-detected sheet look correct, or should `--sheet` override?
+
+#### Phase 1b: Extract with Claude's column choices
+
+```bash
+python skills/prompt-analyzer/scripts/parse_file.py --extract "<file_path>" \
+  --en <N> --zh <M> --title <P> --cat <Q>
+```
+
+Only `--en` is required. Use `--sheet NAME` if the auto-detected sheet is wrong.
+
+This outputs the standard prompt JSON array to stdout — redirect to a file:
+
+```bash
+python skills/prompt-analyzer/scripts/parse_file.py --extract "data.xlsx" \
+  --en 3 --zh 4 --title 2 --cat 1 > /tmp/prompt_parsed.json
+```
+
+**Example:** From an inspect output with headers like:
+```
+["编号", "类别", "场景主题（中文）", "视频提示词（英文）", "视频提示词（中文）"]
+```
+You'd choose: `--en 3 --zh 4 --title 2 --cat 1`
+
+**For JSON files**, the inspect output shows all top-level keys — you identify which keys map to which fields, and pass their positional indices to `--extract`. Alternatively, if the JSON already uses standard keys (`text_en_full`, `text_zh_full`, `title`), you can run `--extract` without any column flags and it will auto-detect from known keys.
 
 If the script fails:
 - Check that the file exists and is .xlsx/.csv/.json
 - If openpyxl is needed: `pip install openpyxl`
-- If column detection fails, read the file yourself and identify the columns manually
+- For unusual formats, you may read the file yourself and construct the JSON manually
 
 ### Step 2: Fetch DB context
 
