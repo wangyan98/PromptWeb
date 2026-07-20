@@ -105,21 +105,21 @@ def detect_column(headers, rows_sample):
 def split_en_into_statements(en_text):
     """Split English prompt text into statements by comma/semicolon boundaries.
 
-    Handles merging of short trailing specs like '16:9', '8K', '4K', '6s'.
+    Preserves whitespace between delimiters. Short trailing specs like
+    '16:9' are merged into the previous segment.
     Returns list of {text_en, sort_order} dicts.
     """
-    # Split on commas and semicolons
-    parts = re.split(r'[,;]', en_text)
-    parts = [p.strip() for p in parts if p.strip()]
+    # Split on commas and semicolons, keep whitespace in segments
+    parts = [p for p in re.split(r'[,;]', en_text) if p.strip()]
 
-    # Merge short trailing specs (aspect ratios, resolution, duration) into previous segment
+    # Merge short trailing specs (aspect ratios, resolution, duration)
     merged = []
     for part in parts:
         stripped = part.strip()
         if merged and re.match(r'^\d+:\d+$|^\d+[kK]$|^\d+s$', stripped):
             merged[-1] = merged[-1] + ', ' + stripped
         else:
-            merged.append(stripped)
+            merged.append(part)  # preserve original whitespace
 
     statements = []
     for i, text in enumerate(merged):
