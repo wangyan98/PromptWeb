@@ -86,7 +86,6 @@ async def list_words_global(
     word_list = [row["word_en"] for row in rows]
     placeholders = ", ".join(f":w{i}" for i in range(len(word_list)))
     types_params = {f"w{i}": w for i, w in enumerate(word_list)}
-    types_params.update({k: v for k, v in params.items() if k not in ("limit", "offset")})
 
     types_sql = f"""
         SELECT
