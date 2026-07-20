@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch statement types and existing prompts from the PromptWeb API.
+"""Fetch statement types and unprocessed prompts from the PromptWeb API.
 
 Usage: python fetch_context.py
 Env: PROMPT_API_URL (default http://localhost:8000)
@@ -7,8 +7,11 @@ Env: PROMPT_API_URL (default http://localhost:8000)
 Output: JSON printed to stdout:
 {
   "statement_types": [{id, name, color, sort_order}],
-  "existing_prompts": [{id, text_en_full, has_statements}]
+  "unprocessed_prompts": [{id, text_en_full, title}]
 }
+
+"unprocessed_prompts" are prompts that exist in the DB but have ZERO statements
+(i.e., they were imported but not yet analyzed/split).
 """
 
 import json
@@ -51,8 +54,8 @@ def main():
         for t in types_data
     ]
 
-    # 2. Fetch all existing prompts (with pagination)
-    existing_prompts = []
+    # 2. Fetch all existing prompts and check which have NO statements
+    unprocessed = []
     page = 1
     page_size = 100
 
@@ -65,31 +68,30 @@ def main():
         if not items:
             break
 
-        # For each prompt, check if it already has statements
+        # For each prompt, check if it has statements by fetching detail
         for item in items:
-            existing_prompts.append({
-                'id': item['id'],
-                'text_en_full': item.get('text_en_full', ''),
-                'has_statements': False,  # will check by fetching detail
-            })
+            detail = api_get(f'/api/prompts/{item["id"]}')
+            if detail:
+                statements = detail.get('statements', [])
+                if len(statements) == 0:
+                    unprocessed.append({
+                        'id': item['id'],
+                        'title': item.get('title', ''),
+                        'text_en_full': item.get('text_en_full', ''),
+                        'text_zh_full': item.get('text_zh_full', ''),
+                    })
 
         total = prompts_data.get('total', 0)
         if page * page_size >= total:
             break
         page += 1
 
-    # 3. Check which prompts already have statements (fetch detail for each)
-    for p in existing_prompts:
-        detail = api_get(f'/api/prompts/{p["id"]}')
-        if detail:
-            statements = detail.get('statements', [])
-            p['has_statements'] = len(statements) > 0
-
     result = {
         'statement_types': statement_types,
-        'existing_prompts': existing_prompts,
+        'unprocessed_prompts': unprocessed,
     }
 
+    print(f"Found {len(unprocessed)} unprocessed prompts (no statements yet)", file=sys.stderr)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
