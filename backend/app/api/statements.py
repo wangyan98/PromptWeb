@@ -20,7 +20,12 @@ async def list_statements(prompt_id: int, db: AsyncSession = Depends(get_db)):
 @router.post("/prompts/{prompt_id}/statements")
 async def create_statements(prompt_id: int, statements: list[StatementCreate], db: AsyncSession = Depends(get_db)):
     stmts = await prompt_service.create_statements_batch(db, prompt_id, statements)
-    return ApiResponse(data=[StatementResponse.model_validate(s).model_dump() for s in stmts])
+    # Use dict response to avoid lazy-loading words relationship (new statements have no words)
+    return ApiResponse(data=[
+        {"id": s.id, "prompt_id": s.prompt_id, "text_en": s.text_en,
+         "text_zh": s.text_zh, "sort_order": s.sort_order, "type_id": s.type_id, "words": []}
+        for s in stmts
+    ])
 
 
 @router.put("/statements/{statement_id}")

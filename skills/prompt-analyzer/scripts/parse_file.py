@@ -49,9 +49,12 @@ def detect_column(headers, rows_sample):
         if any(kw in h_str for kw in ['中文', 'chinese', '场景', '主题', '标题', 'title', 'zh']):
             if '完整' in h_str and '英' in h_str:
                 continue  # this is the English column, already mapped
-            if '描述' in h_str or '场景' in h_str or '主题' in h_str:
+            # If header has both title-like and Chinese keywords, it's a title, not a full translation
+            is_title_col = any(kw in h_str for kw in ['场景', '主题', '标题', 'title', '名称'])
+            if is_title_col:
                 if mapping['title_col'] is None:
                     mapping['title_col'] = idx
+                continue  # don't also set this as zh_col
             if mapping['zh_col'] is None:
                 mapping['zh_col'] = idx
         # Category detection
@@ -91,6 +94,10 @@ def detect_column(headers, rows_sample):
         # Short labels (2-8 chars typical) = category
         elif mapping['cat_col'] is None and avg_len < 10 and not has_en_keywords:
             mapping['cat_col'] = idx
+
+    # Defensive: if title and zh point to the same column, it's a title, not a full translation
+    if mapping['title_col'] is not None and mapping['zh_col'] == mapping['title_col']:
+        mapping['zh_col'] = None
 
     return mapping
 
