@@ -3,7 +3,7 @@
 
 Usage: python parse_file.py <file_path>
 Output: JSON array printed to stdout. Each element has keys:
-  title, text_en_full, text_zh_full, category
+  title, text_en_full, text_zh_full, category, statements
 """
 
 import json
@@ -49,7 +49,7 @@ def detect_column(headers, rows_sample):
         if any(kw in h_str for kw in ['中文', 'chinese', '场景', '主题', '标题', 'title', 'zh']):
             if '完整' in h_str and '英' in h_str:
                 continue  # this is the English column, already mapped
-            # If header has both title-like and Chinese keywords, it's a title, not a full translation
+            # If header has title-like keywords, it's a title column
             is_title_col = any(kw in h_str for kw in ['场景', '主题', '标题', 'title', '名称'])
             if is_title_col:
                 if mapping['title_col'] is None:
@@ -102,8 +102,37 @@ def detect_column(headers, rows_sample):
     return mapping
 
 
+def split_en_into_statements(en_text):
+    """Split English prompt text into statements by comma/semicolon boundaries.
+
+    Handles merging of short trailing specs like '16:9', '8K', '4K', '6s'.
+    Returns list of {text_en, sort_order} dicts.
+    """
+    # Split on commas and semicolons
+    parts = re.split(r'[,;]', en_text)
+    parts = [p.strip() for p in parts if p.strip()]
+
+    # Merge short trailing specs (aspect ratios, resolution, duration) into previous segment
+    merged = []
+    for part in parts:
+        stripped = part.strip()
+        if merged and re.match(r'^\d+:\d+$|^\d+[kK]$|^\d+s$', stripped):
+            merged[-1] = merged[-1] + ', ' + stripped
+        else:
+            merged.append(stripped)
+
+    statements = []
+    for i, text in enumerate(merged):
+        statements.append({
+            'text_en': text,
+            'sort_order': i + 1,
+        })
+
+    return statements
+
+
 def parse_xlsx(filepath):
-    """Parse .xlsx/.xls file, return list of prompt dicts."""
+    """Parse .xlsx/.xls file, return list of prompt dicts with pre-split statements."""
     try:
         import openpyxl
     except ImportError:
@@ -159,11 +188,19 @@ def parse_xlsx(filepath):
         if not title and zh_text and len(zh_text) < 40:
             title = zh_text
 
+        # If no separate Chinese full-text column, use title as Chinese display
+        if not zh_text and title:
+            zh_text = title
+
+        # Pre-split English text into statements by punctuation
+        statements = split_en_into_statements(en_text)
+
         prompts.append({
             'title': title or '',
             'text_en_full': en_text,
             'text_zh_full': zh_text,
             'category': category or '',
+            'statements': statements,
         })
 
     print(f"Parsed sheet '{data_sheet}': {len(prompts)} rows", file=sys.stderr)
@@ -171,7 +208,7 @@ def parse_xlsx(filepath):
 
 
 def parse_csv(filepath):
-    """Parse .csv file, return list of prompt dicts."""
+    """Parse .csv file, return list of prompt dicts with pre-split statements."""
     encodings = ['utf-8', 'utf-8-sig', 'gbk', 'gb2312', 'latin-1']
     rows = None
     for enc in encodings:
@@ -213,11 +250,22 @@ def parse_csv(filepath):
         if not en_text:
             continue
 
+        zh_text = get(mapping['zh_col'])
+        title = get(mapping['title_col'])
+
+        if not title and zh_text and len(zh_text) < 40:
+            title = zh_text
+        if not zh_text and title:
+            zh_text = title
+
+        statements = split_en_into_statements(en_text)
+
         prompts.append({
-            'title': get(mapping['title_col']) or get(mapping['zh_col'])[:40] if get(mapping['zh_col']) else '',
+            'title': title or '',
             'text_en_full': en_text,
-            'text_zh_full': get(mapping['zh_col']),
+            'text_zh_full': zh_text,
             'category': get(mapping['cat_col']),
+            'statements': statements,
         })
 
     print(f"Parsed CSV: {len(prompts)} rows", file=sys.stderr)
@@ -225,7 +273,7 @@ def parse_csv(filepath):
 
 
 def parse_json_file(filepath):
-    """Parse .json file, return list of prompt dicts.
+    """Parse .json file, return list of prompt dicts with pre-split statements.
 
     Normalizes known key names to: title, text_en_full, text_zh_full, category.
     """
@@ -265,8 +313,15 @@ def parse_json_file(filepath):
             if field not in prompt:
                 prompt[field] = ''
 
-        if prompt['text_en_full']:
-            prompts.append(prompt)
+        if not prompt['text_en_full']:
+            continue
+
+        # If no zh_full, use title
+        if not prompt['text_zh_full'] and prompt['title']:
+            prompt['text_zh_full'] = prompt['title']
+
+        prompt['statements'] = split_en_into_statements(prompt['text_en_full'])
+        prompts.append(prompt)
 
     print(f"Parsed JSON: {len(prompts)} rows", file=sys.stderr)
     return prompts
