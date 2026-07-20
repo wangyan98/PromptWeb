@@ -36,6 +36,27 @@ function onWordClick(wordId: number, event: Event) {
 function getWordHighlightClass(wordId: number) {
   return highlightedWordId?.value === wordId ? 'word-highlighted' : ''
 }
+
+function renderChunks(statement: StatementResponse) {
+  const chunks: { text: string; word?: PromptWordResponse }[] = []
+  const words = statement.words || []
+  const sorted = [...words].sort((a, b) => (a.position_start ?? 0) - (b.position_start ?? 0))
+
+  let lastEnd = 0
+  for (const word of sorted) {
+    const start = word.position_start ?? 0
+    const end = word.position_end ?? 0
+    if (start > lastEnd) {
+      chunks.push({ text: statement.text_en.slice(lastEnd, start) })
+    }
+    chunks.push({ text: statement.text_en.slice(start, end), word })
+    lastEnd = end
+  }
+  if (lastEnd < statement.text_en.length) {
+    chunks.push({ text: statement.text_en.slice(lastEnd) })
+  }
+  return chunks
+}
 </script>
 
 <template>
@@ -51,13 +72,15 @@ function getWordHighlightClass(wordId: number) {
       </span>
     </div>
     <p class="stmt-en">
-      <span
-        v-for="word in statement.words"
-        :key="word.id"
-        :class="['clickable-word', getWordHighlightClass(word.id)]"
-        @click="onWordClick(word.id, $event)"
-      >{{ word.word_en }} </span>
       <span v-if="statement.words.length === 0">{{ statement.text_en }}</span>
+      <template v-else v-for="(chunk, ci) in renderChunks(statement)" :key="ci">
+        <span
+          v-if="chunk.word"
+          :class="['clickable-word', getWordHighlightClass(chunk.word.id)]"
+          @click="onWordClick(chunk.word.id, $event)"
+        >{{ chunk.text }}</span>
+        <span v-else>{{ chunk.text }}</span>
+      </template>
     </p>
     <p class="stmt-zh">{{ statement.text_zh }}</p>
   </div>
