@@ -40,62 +40,93 @@ If the API is unreachable, remind the user to start the PromptWeb backend and se
 
 ### Step 3: AI analysis
 
-This is the core intelligence step. You (Claude) must analyze each new prompt that doesn't already have statements in the DB.
+**This is the core intelligence step.** You (Claude) do ALL translation, type classification, and word extraction. No hardcoded data — every analysis is generated fresh based on your language understanding.
 
-**Deduplication first:** Compare parsed rows against existing_prompts. A prompt is already analyzed if there's an existing prompt with matching `text_en_full` AND `has_statements: true`. Skip those.
+The `ai_translate.py` script is a **batch I/O helper only** — it does zero intelligence. Use it for splitting large files and validating output. All semantic work happens in this step, by you.
 
-**For each new prompt, do the following:**
+**Deduplication first:** Compare parsed rows against existing_prompts from Step 2. A prompt is already analyzed if there's an existing prompt with matching `text_en_full` AND `has_statements: true`. Skip those.
 
-#### 3a. Split into semantic segments
+#### Small batch workflow (≤30 new prompts)
 
-Split the English prompt at natural semantic boundaries — commas, conjunctions, or where the topic shifts. Each segment should be a meaningful phrase. Typically 3-8 segments per prompt.
+Read the parsed JSON from Step 1 and context from Step 2 directly. Produce the analysis JSON yourself and write it to `/tmp/prompt_analysis.json`.
 
-Good split example:
-- "Generate epic Unreal Engine 5 fantasy landscape,"
-- "stormy overcast daylight,"
-- "cinematic environmental photography,"
-- "ancient colossal temple ruins built into a cliff face"
+#### Large batch workflow (>30 new prompts)
 
-Bad split (too granular):
-- "Generate", "epic", "Unreal", "Engine", "5"...
+Use the batch helper to split, then analyze batch by batch:
 
-#### 3b. Assign statement types
+```bash
+# 1. Split parsed prompts into batches of 30
+python skills/prompt-analyzer/scripts/ai_translate.py --split 30 < /tmp/prompt_parsed.json
+# → writes batch-001.json ... batch-00N.json to /tmp/prompt-batches/
 
-For each segment, pick the best-matching `type_id` from the available statement types. If no existing type fits well, you may leave `type_id` as `null` and the user can categorize later. Use your judgment — match semantically (e.g., a segment about lighting → "光照氛围" type; a segment about camera composition → "镜头构图" type).
+# 2. For EACH batch file, read it, analyze the prompts in it,
+#    and write batch-NNN-out.json with the SAME structure.
+#    (You do this — see "Analysis rules" below.)
 
-#### 3c. Translate each segment to Chinese
+# 3. Merge all batch outputs
+python skills/prompt-analyzer/scripts/ai_translate.py --merge
+# → writes /tmp/prompt_analysis.json
 
-Provide a faithful Chinese translation for every segment. This is always needed — source files only have full-text Chinese, not segment-level translations.
+# 4. Validate the merged output
+python skills/prompt-analyzer/scripts/ai_translate.py --validate /tmp/prompt_analysis.json
+```
 
-#### 3d. Extract difficult words
+Each batch output file must have this structure (same as the final format, just scoped to that batch):
+```json
+{
+  "new_prompts": [ ... ]
+}
+```
+
+#### Analysis rules
+
+For each new prompt, do the following:
+
+**3a. Split into semantic segments**
+
+Split the English prompt at natural semantic boundaries — commas, conjunctions, or where the topic shifts. Each segment should be a meaningful phrase. Typically 3-8 segments per prompt. Preserve original whitespace and punctuation exactly.
+
+**3b. Assign statement types**
+
+For each segment, pick the best-matching `type_id` from the available statement types returned by Step 2. Match semantically:
+- Segments about lighting/atmosphere → "光照氛围" type
+- Segments about camera/framing → "镜头构图" type
+- Segments about the main subject → "场景主体" type
+- If no existing type fits well, leave `type_id` as `null`.
+
+**3c. Translate each segment to Chinese**
+
+Provide a faithful Chinese translation for every segment. This is always needed — source files only have full-text Chinese (`text_zh_full`), not segment-level translations. Make translations natural and idiomatic in Chinese.
+
+**3d. Translate the full prompt (text_zh_full)**
+
+If the source file already provides `text_zh_full` and it's not empty, use it as-is. Only generate a new `text_zh_full` when the source has none — in that case, compose a natural Chinese paragraph from the segment translations.
+
+**3e. Extract difficult words**
 
 For each segment, identify words that are:
 - **Uncommon or specialized** (e.g., "colossal", "overcast", "cinematic", "canopy", "dune")
 - **Art/photography terminology** (e.g., "bokeh", "depth of field", "volumetric", "ambient occlusion")
-- **NOT basic words**: skip articles (a, an, the), prepositions (in, on, at, of, to, for, with), conjunctions (and, or, but), common verbs (is, are, was, were, be, been, being, have, has, had, do, does, did, will, would, can, could), common pronouns (it, its, this, that, these, those)
+- **NOT basic words**: skip articles, prepositions, conjunctions, common verbs (be/have/do/modal), pronouns, numbers
 
 For each difficult word:
-- `word_en`: the English word/phrase exactly as it appears
+- `word_en`: the English word exactly as it appears in the text
 - `word_zh`: Chinese translation/explanation
-- `position_start`: character index in the FULL `text_en_full` string where this word starts (0-based)
-- `position_end`: character index where this word ends (exclusive)
+- `position_start`: character index in the FULL `text_en_full` string (0-based)
+- `position_end`: character index in the FULL `text_en_full` (exclusive)
 
-IMPORTANT: Calculate positions against the original `text_en_full` field, not the segment text. Use `text_en_full.find(word_en)` and `text_en_full.find(word_en) + len(word_en)`.
+**CRITICAL**: Calculate positions against the original `text_en_full` field, not the segment text.
 
-#### 3e. Chinese translation rule
+#### Output format
 
-If the source file already provides `text_zh_full` and it's not empty, use it as-is in the output — do NOT re-translate. Only provide AI-generated `text_zh_full` when the source file has none.
-
-### Output format for Step 3
-
-Write the analysis result to a temporary JSON file (e.g., `/tmp/prompt_analysis.json`):
+The final output goes to `/tmp/prompt_analysis.json`:
 
 ```json
 {
   "new_prompts": [
     {
       "title": "建于悬崖的巨型神庙废墟",
-      "text_en_full": "Generate epic Unreal Engine 5 fantasy landscape, stormy overcast daylight, cinematic environmental photography, ancient colossal temple ruins built into a cliff face...",
+      "text_en_full": "Generate epic Unreal Engine 5 fantasy landscape, stormy overcast daylight...",
       "text_zh_full": "建于悬崖的巨型神庙废墟",
       "category": "远古遗迹",
       "source_file": "100条史诗奇幻场景提示词.xlsx",
@@ -106,18 +137,7 @@ Write the analysis result to a temporary JSON file (e.g., `/tmp/prompt_analysis.
           "sort_order": 1,
           "type_id": 1,
           "words": [
-            {"word_en": "epic", "word_zh": "史诗的", "position_start": 9, "position_end": 13},
-            {"word_en": "Unreal Engine 5", "word_zh": "虚幻引擎5", "position_start": 14, "position_end": 28}
-          ]
-        },
-        {
-          "text_en": "stormy overcast daylight",
-          "text_zh": "暴风雨阴天光线",
-          "sort_order": 2,
-          "type_id": 2,
-          "words": [
-            {"word_en": "stormy", "word_zh": "暴风雨的", "position_start": 66, "position_end": 72},
-            {"word_en": "overcast", "word_zh": "阴天的", "position_start": 73, "position_end": 81}
+            {"word_en": "epic", "word_zh": "史诗的", "position_start": 9, "position_end": 13}
           ]
         }
       ]
@@ -136,7 +156,8 @@ This creates all prompts, statements, and words in the database. It prints an im
 
 ## Important notes
 
-- **Process ALL new prompts in one AI pass.** Don't analyze one-by-one — batch them all in the analysis JSON.
-- **If the file is large (>50 prompts),** consider splitting the analysis into chunks of ~30 prompts each to stay within context limits, but still process each chunk completely (all 4 steps per chunk).
+- **Batch large files.** For >30 new prompts, use `ai_translate.py --split` to create manageable chunks. Process each chunk in one AI turn, writing `batch-NNN-out.json`. Then `--merge` and `--validate`.
 - **Words must reference positions in the FULL English text,** not the segment. Wrong positions will break the UI word highlighting.
-- Verify each step's output before proceeding to the next step.
+- **Never hardcode translations or word lists.** All translations, classifications, and word extraction must be done fresh by Claude. The old approach of embedding 650+ hardcoded Chinese translations in the script is forbidden.
+- **Validate before importing.** Always run `ai_translate.py --validate` on the final merged JSON before Step 4.
+- **Verify each step's output** before proceeding to the next step.
