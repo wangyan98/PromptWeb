@@ -43,9 +43,7 @@ async function loadData() {
 }
 
 function goToPrompt(promptId: number) {
-  router.push('/prompts')
-  // Note: selecting a specific prompt after navigation would require
-  // DisplayPage to support a query param; for now, navigate to list
+  router.push({ path: '/prompts', query: { select: promptId } })
 }
 
 function getTypeLabel(typeName: string): string {

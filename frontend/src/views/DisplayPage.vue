@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, provide, computed } from 'vue'
+import { ref, onMounted, watch, provide } from 'vue'
+import { useRoute } from 'vue-router'
 import { promptsApi, type PromptListItem, type PromptDetail, type PaginatedResponse } from '@/api/prompts'
 import SearchBar from '@/components/SearchBar.vue'
 import PromptLeftPanel from '@/components/PromptLeftPanel.vue'
 import PromptRightPanel from '@/components/PromptRightPanel.vue'
 
 // List state
+const route = useRoute()
+
 const items = ref<PromptListItem[]>([])
 const total = ref(0)
 const page = ref(1)
@@ -52,6 +55,12 @@ async function loadCategories() {
 onMounted(() => {
   loadCategories()
   loadList()
+
+  // Auto-select prompt from query param (used by statement book jump)
+  const selectId = Number(route.query.select)
+  if (selectId && !isNaN(selectId)) {
+    selectPrompt(selectId)
+  }
 })
 
 watch([search, category], () => {
