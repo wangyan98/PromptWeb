@@ -188,10 +188,6 @@ def parse_xlsx(filepath):
         if not title and zh_text and len(zh_text) < 40:
             title = zh_text
 
-        # If no separate Chinese full-text column, use title as Chinese display
-        if not zh_text and title:
-            zh_text = title
-
         # Pre-split English text into statements by punctuation
         statements = split_en_into_statements(en_text)
 
@@ -255,8 +251,6 @@ def parse_csv(filepath):
 
         if not title and zh_text and len(zh_text) < 40:
             title = zh_text
-        if not zh_text and title:
-            zh_text = title
 
         statements = split_en_into_statements(en_text)
 
@@ -315,10 +309,6 @@ def parse_json_file(filepath):
 
         if not prompt['text_en_full']:
             continue
-
-        # If no zh_full, use title
-        if not prompt['text_zh_full'] and prompt['title']:
-            prompt['text_zh_full'] = prompt['title']
 
         prompt['statements'] = split_en_into_statements(prompt['text_en_full'])
         prompts.append(prompt)
