@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import prompts, statements, words, images, statement_types, import_, statements_global
+from app.api import prompts, statements, words, images, statement_types, import_, statements_global, words_global
 
 app = FastAPI(title="PromptWeb API", version="1.0.0")
 
@@ -19,6 +19,7 @@ app.include_router(images.router)
 app.include_router(statement_types.router)
 app.include_router(import_.router)
 app.include_router(statements_global.router)
+app.include_router(words_global.router)
 
 
 @app.on_event("startup")
