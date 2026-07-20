@@ -35,7 +35,7 @@ const highlightedWord = computed(() => {
       </p>
     </div>
     <div class="full-text-section" v-if="prompt.text_zh_full">
-      <div class="section-label">中文翻译</div>
+      <div class="section-label">中文 Prompt</div>
       <p class="full-text-zh">{{ prompt.text_zh_full }}</p>
     </div>
     <div class="divider"></div>

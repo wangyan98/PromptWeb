@@ -9,33 +9,23 @@ const router = createRouter({
     },
     {
       path: '/prompts',
-      name: 'prompt-list',
-      component: () => import('@/views/PromptList.vue'),
+      name: 'display',
+      component: () => import('@/views/DisplayPage.vue'),
     },
     {
-      path: '/prompts/new',
-      name: 'prompt-new',
+      path: '/manage',
+      name: 'manage',
+      component: () => import('@/views/ManagePage.vue'),
+    },
+    {
+      path: '/manage/prompts/new',
+      name: 'manage-prompt-new',
       component: () => import('@/views/PromptForm.vue'),
     },
     {
-      path: '/prompts/:id',
-      name: 'prompt-detail',
-      component: () => import('@/views/PromptDetail.vue'),
-    },
-    {
-      path: '/prompts/:id/edit',
-      name: 'prompt-edit',
+      path: '/manage/prompts/:id/edit',
+      name: 'manage-prompt-edit',
       component: () => import('@/views/PromptForm.vue'),
-    },
-    {
-      path: '/statement-types',
-      name: 'statement-types',
-      component: () => import('@/views/StatementTypeManager.vue'),
-    },
-    {
-      path: '/import',
-      name: 'import',
-      component: () => import('@/views/ImportPage.vue'),
     },
   ],
 })

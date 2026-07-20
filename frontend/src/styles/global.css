@@ -35,12 +35,71 @@ a:hover {
   text-decoration: underline;
 }
 
-button {
-  cursor: pointer;
+/* ── Global button styles ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
   font-family: inherit;
-  font-size: inherit;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  line-height: 1.4;
 }
 
+.btn:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-accent);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.btn-sm {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8rem;
+}
+
+.btn-danger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  background: transparent;
+}
+
+.btn-danger:hover {
+  background: rgba(96, 165, 250, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Form elements ── */
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -57,6 +116,7 @@ input:focus, textarea:focus, select:focus {
   border-color: var(--color-accent);
 }
 
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -67,7 +127,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: #2a2a2a;
   border-radius: 4px;
 }
 

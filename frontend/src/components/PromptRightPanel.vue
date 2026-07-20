@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
 import type { PromptDetail, PromptImageResponse } from '@/api/prompts'
 import { promptsApi } from '@/api/prompts'
 import ImageGallery from './ImageGallery.vue'
@@ -8,9 +7,10 @@ import WordCardPanel from './WordCardPanel.vue'
 
 const props = defineProps<{
   prompt: PromptDetail
+  promptId: number
+  readonly?: boolean
 }>()
 
-const route = useRoute()
 const images = ref<PromptImageResponse[]>(props.prompt.images || [])
 
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -20,9 +20,8 @@ async function onFileSelected(event: Event) {
   const file = input.files?.[0]
   if (!file) return
   try {
-    const res = await promptsApi.uploadImage(Number(route.params.id), file)
-    // Reload prompt images
-    const promptRes = await promptsApi.get(Number(route.params.id))
+    await promptsApi.uploadImage(props.promptId, file)
+    const promptRes = await promptsApi.get(props.promptId)
     images.value = (promptRes.data as PromptDetail).images || []
   } catch (e) {
     console.error('Upload failed:', e)
@@ -32,8 +31,8 @@ async function onFileSelected(event: Event) {
 async function addUrl() {
   const url = prompt('输入图片 URL:')
   if (!url) return
-  await promptsApi.addImageUrl(Number(route.params.id), url)
-  const promptRes = await promptsApi.get(Number(route.params.id))
+  await promptsApi.addImageUrl(props.promptId, url)
+  const promptRes = await promptsApi.get(props.promptId)
   images.value = (promptRes.data as PromptDetail).images || []
 }
 
@@ -47,11 +46,13 @@ async function removeImage(imageId: number) {
   <div class="right-panel">
     <ImageGallery
       :images="images"
+      :readonly="readonly"
       @upload="fileInput?.click()"
       @add-url="addUrl"
       @delete="removeImage"
     />
     <input
+      v-if="!readonly"
       ref="fileInput"
       type="file"
       accept="image/*"

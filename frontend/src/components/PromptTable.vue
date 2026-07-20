@@ -17,7 +17,7 @@ const emit = defineEmits<{
     <div class="table-header">
       <span class="col-thumb"></span>
       <span class="col-en">英文 Prompt</span>
-      <span class="col-zh">中文翻译</span>
+      <span class="col-zh">中文 Prompt</span>
     </div>
     <PromptRow
       v-for="item in items"

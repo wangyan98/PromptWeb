@@ -43,7 +43,7 @@ async function save() {
     } else {
       await promptsApi.create(form.value)
     }
-    router.push('/prompts')
+    router.push('/manage')
   } finally {
     saving.value = false
   }
@@ -63,15 +63,15 @@ async function save() {
         <textarea v-model="form.text_en_full" rows="6" required placeholder="粘贴英文 Prompt..."></textarea>
       </div>
       <div class="form-group">
-        <label>中文翻译</label>
-        <textarea v-model="form.text_zh_full" rows="4" placeholder="中文翻译..."></textarea>
+        <label>中文 Prompt</label>
+        <textarea v-model="form.text_zh_full" rows="4" placeholder="中文 Prompt..."></textarea>
       </div>
       <div class="form-group">
         <label>分类</label>
         <input v-model="form.category" type="text" placeholder="如：远古遗迹、森林自然..." />
       </div>
       <div class="form-actions">
-        <button type="button" class="btn" @click="router.back()">取消</button>
+        <button type="button" class="btn" @click="router.push('/manage')">取消</button>
         <button type="submit" class="btn btn-primary" :disabled="saving">
           {{ saving ? '保存中...' : '保存' }}
         </button>

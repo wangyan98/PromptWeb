@@ -26,7 +26,7 @@ const isHighlighted = computed(() => highlightedStatementId?.value === props.sta
 
 const typeInfo = computed(() => typeStore.getType(props.statement.type_id))
 const typeName = computed(() => typeInfo.value?.name || '未分类')
-const typeColor = computed(() => typeInfo.value?.color || '#4fc3f7')
+const typeColor = computed(() => typeInfo.value?.color || '#3b82f6')
 
 function onWordClick(wordId: number, event: Event) {
   event.stopPropagation()
@@ -46,7 +46,7 @@ function getWordHighlightClass(wordId: number) {
   >
     <div class="stmt-header">
       <span class="stmt-index">#{{ index + 1 }}</span>
-      <span class="stmt-type-badge" :style="{ backgroundColor: typeColor || '#4fc3f7' }">
+      <span class="stmt-type-badge" :style="{ backgroundColor: typeColor || '#3b82f6' }">
         {{ typeName || '未分类' }}
       </span>
     </div>
@@ -79,8 +79,8 @@ function getWordHighlightClass(wordId: number) {
 }
 
 .statement-highlighted {
-  border-color: var(--color-highlight);
-  background: rgba(255, 224, 102, 0.08);
+  border-color: var(--color-accent);
+  background: rgba(59, 130, 246, 0.08);
 }
 
 .stmt-header {
@@ -99,7 +99,7 @@ function getWordHighlightClass(wordId: number) {
   font-size: 0.7rem;
   padding: 2px 8px;
   border-radius: 12px;
-  color: #1a1a2e;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -118,7 +118,7 @@ function getWordHighlightClass(wordId: number) {
 }
 
 .clickable-word:hover {
-  background: rgba(255, 224, 102, 0.3);
+  background: rgba(59, 130, 246, 0.3);
 }
 
 .word-highlighted {

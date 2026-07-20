@@ -58,7 +58,7 @@ async function confirmImport(sheetName: string) {
   try {
     await apiClient.post('/import/confirm', items)
     alert(`成功导入 ${items.length} 条 Prompt`)
-    router.push('/prompts')
+    router.push('/manage')
   } finally {
     importing.value = false
   }
@@ -67,7 +67,6 @@ async function confirmImport(sheetName: string) {
 
 <template>
   <div class="import-page">
-    <h1>导入 Excel 数据</h1>
     <div class="upload-zone">
       <input
         type="file"
@@ -116,11 +115,6 @@ async function confirmImport(sheetName: string) {
 .import-page {
   max-width: 900px;
   margin: 0 auto;
-}
-
-h1 {
-  font-size: var(--font-size-xl);
-  margin-bottom: var(--space-lg);
 }
 
 .upload-zone {

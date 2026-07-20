@@ -4,6 +4,7 @@ import ImageCard from './ImageCard.vue'
 
 defineProps<{
   images: PromptImageResponse[]
+  readonly?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -21,10 +22,11 @@ const emit = defineEmits<{
         v-for="img in images"
         :key="img.id"
         :image="img"
+        :readonly="readonly"
         @delete="emit('delete', img.id)"
       />
     </div>
-    <div class="image-actions">
+    <div class="image-actions" v-if="!readonly">
       <button class="btn btn-sm" @click="emit('upload')">📤 上传图片</button>
       <button class="btn btn-sm" @click="emit('add-url')">🔗 添加链接</button>
     </div>

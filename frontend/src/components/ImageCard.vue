@@ -4,6 +4,7 @@ import type { PromptImageResponse } from '@/api/prompts'
 
 defineProps<{
   image: PromptImageResponse
+  readonly?: boolean
 }>()
 
 defineEmits<{
@@ -16,7 +17,7 @@ const enlarged = ref(false)
 <template>
   <div class="image-card" @click="enlarged = !enlarged">
     <img :src="image.url" alt="prompt image" class="gallery-img" />
-    <button class="delete-btn" @click.stop="$emit('delete')" title="删除">×</button>
+    <button v-if="!readonly" class="delete-btn" @click.stop="$emit('delete')" title="删除">×</button>
     <div class="enlarge-overlay" v-if="enlarged" @click="enlarged = false">
       <img :src="image.url" class="enlarged-img" />
     </div>

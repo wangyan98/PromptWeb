@@ -4,9 +4,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const navItems = [
-  { label: 'Prompt 列表', to: '/prompts', icon: '📋' },
-  { label: '语句类型', to: '/statement-types', icon: '🏷️' },
-  { label: '导入数据', to: '/import', icon: '📥' },
+  { label: '展示', to: '/prompts', icon: '📋' },
+  { label: '管理', to: '/manage', icon: '⚙️' },
 ]
 </script>
 
@@ -86,7 +85,7 @@ const navItems = [
 }
 
 .nav-item.active {
-  background: var(--color-bg-tertiary);
+  background: rgba(59, 130, 246, 0.15);
   color: var(--color-accent);
 }
 

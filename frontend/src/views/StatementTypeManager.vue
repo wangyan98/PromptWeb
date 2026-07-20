@@ -4,7 +4,7 @@ import { statementTypesApi, type StatementTypeItem } from '@/api/statement-types
 
 const types = ref<StatementTypeItem[]>([])
 const newName = ref('')
-const newColor = ref('#4fc3f7')
+const newColor = ref('#3b82f6')
 
 onMounted(async () => {
   await load()
@@ -19,7 +19,7 @@ async function add() {
   if (!newName.value.trim()) return
   await statementTypesApi.create({ name: newName.value.trim(), color: newColor.value, sort_order: types.value.length + 1 })
   newName.value = ''
-  newColor.value = '#4fc3f7'
+  newColor.value = '#3b82f6'
   await load()
 }
 
@@ -39,7 +39,6 @@ async function updateColor(type: StatementTypeItem) {
 
 <template>
   <div class="type-manager">
-    <h1>语句类型管理</h1>
     <div class="add-row">
       <input v-model="newName" type="text" placeholder="类型名称" @keyup.enter="add" />
       <input v-model="newColor" type="color" />
@@ -61,11 +60,6 @@ async function updateColor(type: StatementTypeItem) {
 .type-manager {
   max-width: 600px;
   margin: 0 auto;
-}
-
-h1 {
-  font-size: var(--font-size-xl);
-  margin-bottom: var(--space-lg);
 }
 
 .add-row {
