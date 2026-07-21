@@ -140,11 +140,16 @@ def main():
 
             word_bodies = []
             for w in words:
+                ps = w.get('position_start')
+                pe = w.get('position_end')
+                # Skip words with invalid positions
+                if ps is None or pe is None:
+                    continue
                 word_bodies.append({
                     'word_en': w.get('word_en', ''),
                     'word_zh': w.get('word_zh', ''),
-                    'position_start': w.get('position_start'),
-                    'position_end': w.get('position_end'),
+                    'position_start': int(ps),
+                    'position_end': int(pe),
                 })
 
             word_result = api_post(f'/api/statements/{statement_id}/words', word_bodies)
