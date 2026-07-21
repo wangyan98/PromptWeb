@@ -98,14 +98,14 @@ def cmd_validate(args):
     warnings = []
     for i, p in enumerate(prompts):
         pid = p.get('title', f'prompt-{i}')
-        if not p.get('text_en_full'):
-            errors.append(f'[{pid}] missing text_en_full')
+        if not p.get('text_en_full') and not p.get('text_zh_full'):
+            errors.append(f'[{pid}] missing both text_en_full and text_zh_full')
         if not p.get('statements'):
             errors.append(f'[{pid}] missing statements')
             continue
         for j, s in enumerate(p.get('statements', [])):
             sid = f'{pid}.stmt-{j}'
-            if not s.get('text_en'):
+            if s.get('text_en') is None:
                 errors.append(f'[{sid}] missing text_en')
             if s.get('sort_order') is None:
                 errors.append(f'[{sid}] missing sort_order')

@@ -9,6 +9,7 @@ This script is a dumb I/O tool with two modes:
 
   --extract <file>     Read file, extract rows using column indices provided via CLI flags:
                        --en N --zh M --title P --cat Q --sheet NAME
+                       --zh is required (Chinese prompt). --en is optional (English prompt).
                        Outputs clean JSON array to stdout.
 
 Usage:
@@ -163,8 +164,8 @@ def cmd_inspect(filepath):
 # ── extract mode ────────────────────────────────────────────────────
 
 def split_en_into_statements(en_text):
-    """Split English prompt by commas/semicolons, preserving whitespace."""
-    parts = [p for p in re.split(r'[,;]', en_text) if p.strip()]
+    """Split English prompt by punctuation (commas, semicolons, periods, question/exclamation marks), preserving whitespace."""
+    parts = [p for p in re.split(r'[,;.!?。！？]', en_text) if p.strip()]
     merged = []
     for part in parts:
         stripped = part.strip()
@@ -198,9 +199,9 @@ def cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name):
                 return ''
 
             en_text = pick(en_idx, []) or item.get('text_en_full', item.get('text_en', item.get('prompt', '')))
-            if not en_text:
-                continue
             zh_text = pick(zh_idx, []) or item.get('text_zh_full', item.get('text_zh', item.get('chinese', '')))
+            if not zh_text:
+                continue
             title = pick(title_idx, []) or item.get('title', item.get('name', ''))
             category = pick(cat_idx, []) or item.get('category', item.get('cat', ''))
 
@@ -239,9 +240,9 @@ def cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name):
         if all(not c or not str(c).strip() for c in row):
             continue
         en_text = get_cell(row, en_idx)
-        if not en_text:
-            continue
         zh_text = get_cell(row, zh_idx)
+        if not zh_text:
+            continue
         title = get_cell(row, title_idx)
         category = get_cell(row, cat_idx)
 
@@ -307,10 +308,6 @@ def main():
         if not os.path.exists(filepath):
             print(f"Error: file not found: {filepath}", file=sys.stderr)
             sys.exit(1)
-        if en_idx is None:
-            print("Error: --en <index> is required", file=sys.stderr)
-            sys.exit(1)
-
         cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name)
 
     else:
