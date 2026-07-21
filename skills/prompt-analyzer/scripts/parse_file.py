@@ -172,8 +172,9 @@ def cmd_inspect(filepath):
 # ── extract mode ────────────────────────────────────────────────────
 
 def split_en_into_statements(en_text):
-    """Split English prompt by commas (SD-style comma-separated tags), preserving whitespace."""
-    parts = [s.strip() for s in en_text.split(',') if s.strip()]
+    """Split English prompt by commas and parentheses (SD-style tags), preserving whitespace."""
+    # Split on commas, (, and ) — keep meaningful fragments
+    parts = [s.strip() for s in re.split(r'[,()]', en_text) if s.strip()]
     return [{'text_en': text, 'sort_order': i + 1} for i, text in enumerate(parts)]
 
 
