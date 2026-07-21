@@ -59,6 +59,29 @@ python3 -c "import json; d=json.load(open('/tmp/prompt_parsed.json')); print(f'r
 
 Share this one-line verification with the user before moving to Step 2.
 
+#### Alternative: Directory of single-prompt-per-file xlsx (e.g. SD prompt collections)
+
+Some prompt collections store **one prompt per xlsx file** in a directory tree. Each file has label-value pairs (col C=key, col D=value) rather than a table of rows. The key field is `正向提示词` (positive prompt in col C). Category is derived from the subdirectory name.
+
+For these, use `--dir` mode:
+
+```bash
+# Test with a sample first (always do this):
+python skills/prompt-analyzer/scripts/parse_file.py --dir "<directory_path>" --limit 5
+
+# After confirming format looks correct, run full extract:
+python skills/prompt-analyzer/scripts/parse_file.py --dir "<directory_path>" > /tmp/prompt_parsed.json
+```
+
+`--dir` mode:
+- Walks directory recursively, finds all `.xlsx` files
+- Extracts `正向提示词` → `text_en_full`, category from parent dir, title from filename (cleaned)
+- Auto-splits English prompt at commas into statement segments
+- Deduplicates by `text_en_full`
+- Sets `text_zh_full` to empty (translations generated in Step 3)
+
+**Always test with `--limit 5` first** and show the user sample titles, categories, and statement counts. After the user confirms, run without `--limit`.
+
 ### Step 2: Fetch DB context
 
 ```bash
@@ -73,9 +96,22 @@ If the API is unreachable, remind the user to start the PromptWeb backend and se
 
 ### Step 3: AI analysis
 
-**This is the core intelligence step.** You (Claude) do ALL translation, type classification, and word extraction. No hardcoded data — every analysis is generated fresh based on your language understanding.
+**This is the core intelligence step.** You (Claude) do ALL translation, type classification, and word extraction for natural-language prompts. No hardcoded data — every analysis is generated fresh based on your language understanding.
 
-The `ai_translate.py` script is a **batch I/O helper only** — it does zero intelligence. Use it for splitting large files and validating output. All semantic work happens in this step, by you.
+**For SD-style comma-separated tag prompts** (from `--dir` mode or similar), use the SD tag analyzer:
+
+```bash
+python skills/prompt-analyzer/scripts/ai_analyze_sd.py < /tmp/prompt_parsed.json > /tmp/prompt_analysis.json
+```
+
+`ai_analyze_sd.py` handles the mechanical parts of SD tag analysis:
+- Rule-based type classification (quality→画质风格, lighting→光照氛围, subject→场景主体, etc.)
+- Dictionary-based Chinese translation for common SD tags
+- Specialized word extraction (artist names, art/photography terminology, uncommon words)
+
+For natural-language English prompts, always do the analysis yourself. For SD tag prompts, `ai_analyze_sd.py` provides consistent, high-coverage results. If the dictionary misses common tags, add them to the script.
+
+The `ai_translate.py` script is a **batch I/O helper only** — it does zero intelligence. Use it for splitting large files and validating output.
 
 **Deduplication first:** Compare parsed rows against existing_prompts from Step 2. A prompt is already analyzed if there's an existing prompt with matching `text_en_full` AND `has_statements: true`. Skip those.
 
@@ -264,3 +300,5 @@ This creates all prompts, statements, and words in the database. It prints an im
 - **Never hardcode translations or word lists.** All translations, classifications, and word extraction must be done fresh by Claude.
 - **Validate before importing.** Always run `ai_translate.py --validate` on the merged JSON before Step 4.
 - **Check word counts before importing.** If the merge reports 0 words but you expected words, stop — a batch format issue caused data loss. Fix and re-merge.
+- **For `--dir` mode, Step 3 (AI analysis) is NOT optional.** The source files have no Chinese translations and no word annotations. You MUST run Step 3 to generate `text_zh_full`, statement `text_zh`, and `words` before importing. Skipping Step 3 produces empty translations and zero highlighted words.
+- **Do NOT create ad-hoc /tmp scripts to bypass the skill pipeline.** If the data format doesn't fit, extend `parse_file.py` in the skill directory. The skill's 4-step pipeline (parse → fetch context → AI analysis → import) must always run end-to-end.

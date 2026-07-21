@@ -2,7 +2,7 @@
 """Parse a prompt data file (xlsx/csv/json) — file-reading only, no column detection.
 
 All intelligence (column mapping, key identification) comes from Claude.
-This script is a dumb I/O tool with two modes:
+This script is a dumb I/O tool with three modes:
 
   --inspect <file>     Read file, print a compact profile: headers, sample rows, row count.
                        Claude reads this output and decides which columns are which.
@@ -12,12 +12,20 @@ This script is a dumb I/O tool with two modes:
                        --zh is required (Chinese prompt). --en is optional (English prompt).
                        Outputs clean JSON array to stdout.
 
+  --dir <dir_path>     Scan directory recursively for single-prompt-per-file xlsx files
+                       (label-value format: col C=key, col D=value).
+                       Extracts category from subdirectory name, title from filename.
+                       Supports --limit N for testing.
+
 Usage:
   python parse_file.py --inspect data.xlsx
       → prints metadata JSON with headers and first 5 rows
 
   python parse_file.py --extract data.xlsx --en 1 --zh 2 --title 0
       → prints prompt JSON array using Claude's column choices
+
+  python parse_file.py --dir ./SD-prompts/ --limit 5
+      → prints parsed JSON for first 5 files found
 """
 
 import json
@@ -164,16 +172,9 @@ def cmd_inspect(filepath):
 # ── extract mode ────────────────────────────────────────────────────
 
 def split_en_into_statements(en_text):
-    """Split English prompt by punctuation (commas, semicolons, periods, question/exclamation marks), preserving whitespace."""
-    parts = [p for p in re.split(r'[,;.!?。！？]', en_text) if p.strip()]
-    merged = []
-    for part in parts:
-        stripped = part.strip()
-        if merged and re.match(r'^\d+:\d+$|^\d+[kK]$|^\d+s$', stripped):
-            merged[-1] = merged[-1] + ', ' + stripped
-        else:
-            merged.append(part)
-    return [{'text_en': text, 'sort_order': i + 1} for i, text in enumerate(merged)]
+    """Split English prompt by commas (SD-style comma-separated tags), preserving whitespace."""
+    parts = [s.strip() for s in en_text.split(',') if s.strip()]
+    return [{'text_en': text, 'sort_order': i + 1} for i, text in enumerate(parts)]
 
 
 def cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name):
@@ -260,6 +261,120 @@ def cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name):
     json.dump(prompts, sys.stdout, ensure_ascii=False, indent=2)
 
 
+# ── dir mode: single-prompt-per-file xlsx ───────────────────────────
+
+def read_single_prompt_xlsx(filepath):
+    """Read a single-prompt-per-file xlsx (label-value format: col C=key, col D=value).
+
+    This format is common in SD prompt collections where each xlsx has:
+      Row 0 (header):  [empty, empty, '模型', 'model-name', 'shop info']
+      Row 1+:          [empty, empty, 'SD版本'/'sampler'/'cfgScale'/'正向提示词'/'反向提示词', value]
+    """
+    try:
+        import openpyxl
+    except ImportError:
+        print("Error: openpyxl not installed. Run: pip install openpyxl", file=sys.stderr)
+        sys.exit(1)
+
+    wb = openpyxl.load_workbook(filepath, data_only=True)
+    ws = wb[wb.sheetnames[0]]
+
+    rows = []
+    for row in ws.iter_rows(values_only=True):
+        if any(cell is not None for cell in row):
+            rows.append([str(cell).strip() if cell is not None else '' for cell in row])
+
+    if len(rows) < 2:
+        return None
+
+    # Read label-value pairs from col C (index 2) and col D (index 3)
+    data = {}
+    for row in rows:
+        if len(row) >= 3:
+            label = str(row[2]).strip() if row[2] else ''
+            value = str(row[3]).strip() if len(row) > 3 and row[3] else ''
+            if label and label not in data:
+                data[label] = value
+
+    # Also read model from header row (row 0, col C='模型')
+    if rows and len(rows[0]) >= 4 and rows[0][2] == '模型':
+        data['模型'] = str(rows[0][3]).strip() if rows[0][3] else ''
+
+    en_text = data.get('正向提示词', '')
+    if not en_text:
+        return None
+
+    # Title from filename: strip common prefixes/suffixes
+    filename = Path(filepath).name
+    title = Path(filepath).stem
+    title = re.sub(r'__?淘宝晴空创意坊$', '', title)
+    title = re.sub(r'_淘宝晴空创意坊$', '', title)
+    title = re.sub(r'^后补_', '', title)
+    title = re.sub(r'_+$', '', title)
+    title = title.strip()
+
+    # Category from parent directory name
+    category = Path(filepath).parent.name
+
+    return {
+        'title': title,
+        'text_en_full': en_text,
+        'text_zh_full': '',  # no Chinese in source — will be generated in Step 3
+        'category': category,
+        'source_file': filename,
+        'statements': split_en_into_statements(en_text),
+    }
+
+
+def cmd_dir(dirpath, limit=None):
+    """Walk directory for single-prompt-per-file xlsx, output parsed JSON."""
+    if not os.path.isdir(dirpath):
+        print(f"Error: directory not found: {dirpath}", file=sys.stderr)
+        sys.exit(1)
+
+    files = []
+    for root, _, filenames in os.walk(dirpath):
+        for fn in filenames:
+            if fn.endswith('.xlsx') and not fn.startswith('~$'):
+                files.append(os.path.join(root, fn))
+
+    total_files = len(files)
+    if limit and limit > 0:
+        files = files[:limit]
+
+    prompts = []
+    fail_count = 0
+    for fp in files:
+        try:
+            p = read_single_prompt_xlsx(fp)
+            if p:
+                prompts.append(p)
+        except Exception as e:
+            fail_count += 1
+            if fail_count <= 3:
+                print(f"WARN: {os.path.basename(fp)}: {e}", file=sys.stderr)
+
+    # Deduplicate by text_en_full
+    seen = set()
+    unique = []
+    for p in prompts:
+        key = p['text_en_full']
+        if key not in seen:
+            seen.add(key)
+            unique.append(p)
+
+    dup_count = len(prompts) - len(unique)
+    if dup_count:
+        print(f"Removed {dup_count} duplicates", file=sys.stderr)
+
+    msg = f"Scanned {total_files} files → {len(unique)} unique prompts"
+    if fail_count:
+        msg += f" ({fail_count} parse failures)"
+    print(msg, file=sys.stderr)
+
+    json.dump(unique, sys.stdout, ensure_ascii=False, indent=2)
+
+
 # ── main ─────────────────────────────────────────────────────────────
 
 def main():
@@ -309,6 +424,25 @@ def main():
             print(f"Error: file not found: {filepath}", file=sys.stderr)
             sys.exit(1)
         cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name)
+
+    elif mode == '--dir':
+        # Parse: --dir <dir_path> [--limit N]
+        filepath = None
+        limit = None
+        i = 2
+        while i < len(sys.argv):
+            arg = sys.argv[i]
+            if arg == '--limit' and i + 1 < len(sys.argv):
+                limit = int(sys.argv[i + 1]); i += 2
+            elif not arg.startswith('--'):
+                filepath = arg; i += 1
+            else:
+                i += 1
+
+        if not filepath:
+            print("Error: no directory path provided", file=sys.stderr)
+            sys.exit(1)
+        cmd_dir(filepath, limit)
 
     else:
         print(f"Unknown mode: {mode}", file=sys.stderr)
