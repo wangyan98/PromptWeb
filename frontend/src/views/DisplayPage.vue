@@ -3,6 +3,7 @@ import { ref, onMounted, watch, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import { promptsApi, type PromptListItem, type PromptDetail, type PaginatedResponse } from '@/api/prompts'
 import SearchBar from '@/components/SearchBar.vue'
+import PageNav from '@/components/PageNav.vue'
 import PromptLeftPanel from '@/components/PromptLeftPanel.vue'
 import PromptRightPanel from '@/components/PromptRightPanel.vue'
 
@@ -141,11 +142,7 @@ function truncate(text: string, max: number): string {
         <div class="loading" v-else>加载中...</div>
 
         <!-- Pagination -->
-        <div class="list-pagination" v-if="total > pageSize">
-          <button class="btn btn-sm" :disabled="page <= 1" @click="page--">上一页</button>
-          <span class="page-info">{{ page }} / {{ Math.ceil(total / pageSize) }}</span>
-          <button class="btn btn-sm" :disabled="page >= Math.ceil(total / pageSize)" @click="page++">下一页</button>
-        </div>
+        <PageNav class="list-pagination" v-model="page" :total="total" :page-size="pageSize" />
       </div>
 
       <!-- Right: Detail Panel -->
@@ -312,11 +309,6 @@ function truncate(text: string, max: number): string {
   padding: var(--space-sm) var(--space-md);
   border-top: 1px solid var(--color-border);
   flex-shrink: 0;
-}
-
-.page-info {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
 }
 
 /* Right Detail Panel */

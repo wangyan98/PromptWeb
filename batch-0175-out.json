@@ -1,0 +1,828 @@
+{
+  "new_prompts": [
+    {
+      "title": "动漫_196",
+      "text_en_full": "highly detailed portrait of halo, blue eyes, tartan scarf, white hair by atey ghailan, by greg rutkowski, by greg tocchini, by james gilleard, by joe fenton, by kaethe butcher, gradient yellow, black, brown and magenta color scheme, grunge aesthetic!!! graffiti tag wall background",
+      "text_zh_full": "",
+      "category": "动漫",
+      "source_file": "动漫_196_淘宝晴空创意坊.xlsx",
+      "statements": [
+        {
+          "text_en": "highly detailed portrait of halo",
+          "text_zh": "高清细节光环肖像",
+          "sort_order": 1,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "halo",
+              "word_zh": "光环",
+              "position_start": 28,
+              "position_end": 32
+            }
+          ]
+        },
+        {
+          "text_en": "blue eyes",
+          "text_zh": "蓝色眼睛",
+          "sort_order": 2,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "tartan scarf",
+          "text_zh": "格子围巾",
+          "sort_order": 3,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "tartan",
+              "word_zh": "格子呢",
+              "position_start": 45,
+              "position_end": 51
+            }
+          ]
+        },
+        {
+          "text_en": "white hair by atey ghailan",
+          "text_zh": "白发，由Atey Ghailan绘制",
+          "sort_order": 4,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "atey ghailan",
+              "word_zh": "Atey Ghailan(艺术家)",
+              "position_start": 71,
+              "position_end": 84
+            }
+          ]
+        },
+        {
+          "text_en": "by greg rutkowski",
+          "text_zh": "由Greg Rutkowski绘制",
+          "sort_order": 5,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "greg rutkowski",
+              "word_zh": "Greg Rutkowski(艺术家)",
+              "position_start": 90,
+              "position_end": 104
+            }
+          ]
+        },
+        {
+          "text_en": "by greg tocchini",
+          "text_zh": "由Greg Tocchini绘制",
+          "sort_order": 6,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "greg tocchini",
+              "word_zh": "Greg Tocchini(艺术家)",
+              "position_start": 110,
+              "position_end": 122
+            }
+          ]
+        },
+        {
+          "text_en": "by james gilleard",
+          "text_zh": "由James Gilleard绘制",
+          "sort_order": 7,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "james gilleard",
+              "word_zh": "James Gilleard(艺术家)",
+              "position_start": 127,
+              "position_end": 141
+            }
+          ]
+        },
+        {
+          "text_en": "by joe fenton",
+          "text_zh": "由Joe Fenton绘制",
+          "sort_order": 8,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "joe fenton",
+              "word_zh": "Joe Fenton(艺术家)",
+              "position_start": 147,
+              "position_end": 156
+            }
+          ]
+        },
+        {
+          "text_en": "by kaethe butcher",
+          "text_zh": "由Kaethe Butcher绘制",
+          "sort_order": 9,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "kaethe butcher",
+              "word_zh": "Kaethe Butcher(艺术家)",
+              "position_start": 162,
+              "position_end": 175
+            }
+          ]
+        },
+        {
+          "text_en": "gradient yellow",
+          "text_zh": "渐变黄色",
+          "sort_order": 10,
+          "type_id": 7,
+          "words": []
+        },
+        {
+          "text_en": "black",
+          "text_zh": "黑色",
+          "sort_order": 11,
+          "type_id": 7,
+          "words": []
+        },
+        {
+          "text_en": "brown and magenta color scheme",
+          "text_zh": "棕色与洋红配色方案",
+          "sort_order": 12,
+          "type_id": 7,
+          "words": [
+            {
+              "word_en": "magenta",
+              "word_zh": "洋红色",
+              "position_start": 222,
+              "position_end": 229
+            }
+          ]
+        },
+        {
+          "text_en": "grunge aesthetic!!! graffiti tag wall background",
+          "text_zh": "垃圾摇滚美学!!!涂鸦标签墙壁背景",
+          "sort_order": 13,
+          "type_id": 8,
+          "words": [
+            {
+              "word_en": "grunge",
+              "word_zh": "垃圾摇滚风格",
+              "position_start": 233,
+              "position_end": 239
+            },
+            {
+              "word_en": "graffiti",
+              "word_zh": "涂鸦",
+              "position_start": 252,
+              "position_end": 260
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "动漫_191",
+      "text_en_full": "((((((exorbitantly fantastically beautiful illustrated picture-perfect))))))     ((( shiny toddler shuri , brown hair, solo, 1girl, amethyst green eyes, hair between eyes, anime coloring <lora:Shuri-05:1>))) (((outdoors, clouds and fields in background, sunny summer day)))",
+      "text_zh_full": "",
+      "category": "动漫",
+      "source_file": "动漫_191_淘宝晴空创意坊.xlsx",
+      "statements": [
+        {
+          "text_en": "((((((exorbitantly fantastically beautiful illustrated picture-perfect))))))     ((( shiny toddler shuri",
+          "text_zh": "极为精美绝伦的插图级完美画面，闪亮幼儿Shuri",
+          "sort_order": 1,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "exorbitantly",
+              "word_zh": "极致地",
+              "position_start": 7,
+              "position_end": 19
+            },
+            {
+              "word_en": "fantastically",
+              "word_zh": "惊人地",
+              "position_start": 20,
+              "position_end": 33
+            },
+            {
+              "word_en": "picture-perfect",
+              "word_zh": "完美画面",
+              "position_start": 54,
+              "position_end": 68
+            },
+            {
+              "word_en": "shuri",
+              "word_zh": "Shuri(角色名)",
+              "position_start": 92,
+              "position_end": 97
+            }
+          ]
+        },
+        {
+          "text_en": "brown hair",
+          "text_zh": "棕色头发",
+          "sort_order": 2,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "solo",
+          "text_zh": "单人",
+          "sort_order": 3,
+          "type_id": 3,
+          "words": []
+        },
+        {
+          "text_en": "1girl",
+          "text_zh": "1个女孩",
+          "sort_order": 4,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "amethyst green eyes",
+          "text_zh": "紫晶绿色眼睛",
+          "sort_order": 5,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "amethyst",
+              "word_zh": "紫晶色",
+              "position_start": 132,
+              "position_end": 140
+            }
+          ]
+        },
+        {
+          "text_en": "hair between eyes",
+          "text_zh": "头发垂于眼间",
+          "sort_order": 6,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "anime coloring <lora:Shuri-05:1>))) (((outdoors",
+          "text_zh": "动漫上色，Lora:Shuri-05(权重1)，户外",
+          "sort_order": 7,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "Shuri-05",
+              "word_zh": "Lora:Shuri-05",
+              "position_start": 181,
+              "position_end": 189
+            }
+          ]
+        },
+        {
+          "text_en": "clouds and fields in background",
+          "text_zh": "背景中的云朵与田野",
+          "sort_order": 8,
+          "type_id": 8,
+          "words": []
+        },
+        {
+          "text_en": "sunny summer day)))",
+          "text_zh": "晴朗夏日",
+          "sort_order": 9,
+          "type_id": 2,
+          "words": []
+        }
+      ]
+    },
+    {
+      "title": "动漫_15",
+      "text_en_full": "lillie /(style/), perfect beautiful hands, masterpiece, best quality, absurdres, 8k, wallpaper, highres, (solo focus:1.5), natural light wearing open school uniform, dim dark school classroom, school desk, beautiful eyes",
+      "text_zh_full": "",
+      "category": "动漫",
+      "source_file": "动漫_15_淘宝晴空创意坊.xlsx",
+      "statements": [
+        {
+          "text_en": "lillie /(style/)",
+          "text_zh": "莉莉艾/(风格/)",
+          "sort_order": 1,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "lillie",
+              "word_zh": "莉莉艾(角色名)",
+              "position_start": 0,
+              "position_end": 6
+            }
+          ]
+        },
+        {
+          "text_en": "perfect beautiful hands",
+          "text_zh": "完美美丽的双手",
+          "sort_order": 2,
+          "type_id": 5,
+          "words": []
+        },
+        {
+          "text_en": "masterpiece",
+          "text_zh": "杰作",
+          "sort_order": 3,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "best quality",
+          "text_zh": "最佳质量",
+          "sort_order": 4,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "absurdres",
+          "text_zh": "超高分辨率",
+          "sort_order": 5,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "absurdres",
+              "word_zh": "超高分辨率",
+              "position_start": 70,
+              "position_end": 79
+            }
+          ]
+        },
+        {
+          "text_en": "8k",
+          "text_zh": "8K分辨率",
+          "sort_order": 6,
+          "type_id": 6,
+          "words": []
+        },
+        {
+          "text_en": "wallpaper",
+          "text_zh": "壁纸级",
+          "sort_order": 7,
+          "type_id": 6,
+          "words": []
+        },
+        {
+          "text_en": "highres",
+          "text_zh": "高分辨率",
+          "sort_order": 8,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "highres",
+              "word_zh": "高分辨率",
+              "position_start": 96,
+              "position_end": 103
+            }
+          ]
+        },
+        {
+          "text_en": "(solo focus:1.5)",
+          "text_zh": "单人焦点(权重1.5)",
+          "sort_order": 9,
+          "type_id": 3,
+          "words": []
+        },
+        {
+          "text_en": "natural light wearing open school uniform",
+          "text_zh": "自然光下穿着敞开校服",
+          "sort_order": 10,
+          "type_id": 2,
+          "words": []
+        },
+        {
+          "text_en": "dim dark school classroom",
+          "text_zh": "昏暗的学校教室",
+          "sort_order": 11,
+          "type_id": 8,
+          "words": []
+        },
+        {
+          "text_en": "school desk",
+          "text_zh": "学校课桌",
+          "sort_order": 12,
+          "type_id": 8,
+          "words": []
+        },
+        {
+          "text_en": "beautiful eyes",
+          "text_zh": "美丽的眼睛",
+          "sort_order": 13,
+          "type_id": 4,
+          "words": []
+        }
+      ]
+    },
+    {
+      "title": "动漫_40",
+      "text_en_full": "<lora:cogita_pokemon:0.8> cogita, 1girl, grey eyes, hair over one eyes, long black dress, black hat, hat flower, BREAK, <lora:Super_speed_running_V2-10:0.65> super speed, running, lighting, light trails, (motion blur:1.15), masterpiece, best quality, extremely detailed, highly quality, 4k, sharp focus, professional, sharp focus, award winning, cinematic lighting, octane render, unreal engine, volumetrics dtx, Wallpaper,",
+      "text_zh_full": "",
+      "category": "动漫",
+      "source_file": "动漫_40_淘宝晴空创意坊.xlsx",
+      "statements": [
+        {
+          "text_en": "<lora:cogita_pokemon:0.8> cogita",
+          "text_zh": "Lora:cogita_pokemon(权重0.8) Cogita",
+          "sort_order": 1,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "cogita_pokemon",
+              "word_zh": "Lora:Cogita宝可梦",
+              "position_start": 6,
+              "position_end": 20
+            },
+            {
+              "word_en": "cogita",
+              "word_zh": "Cogita(角色名)",
+              "position_start": 26,
+              "position_end": 32
+            }
+          ]
+        },
+        {
+          "text_en": "1girl",
+          "text_zh": "1个女孩",
+          "sort_order": 2,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "grey eyes",
+          "text_zh": "灰色眼睛",
+          "sort_order": 3,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "hair over one eyes",
+          "text_zh": "头发遮住一只眼",
+          "sort_order": 4,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "long black dress",
+          "text_zh": "黑色长裙",
+          "sort_order": 5,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "black hat",
+          "text_zh": "黑色帽子",
+          "sort_order": 6,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "hat flower",
+          "text_zh": "帽花",
+          "sort_order": 7,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "BREAK",
+          "text_zh": "分隔",
+          "sort_order": 8,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "<lora:Super_speed_running_V2-10:0.65> super speed",
+          "text_zh": "Lora:Super_speed_running(权重0.65) 超高速",
+          "sort_order": 9,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "Super_speed_running_V2-10",
+              "word_zh": "Lora:超高速奔跑V2",
+              "position_start": 126,
+              "position_end": 154
+            }
+          ]
+        },
+        {
+          "text_en": "running",
+          "text_zh": "奔跑",
+          "sort_order": 10,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "lighting",
+          "text_zh": "光照",
+          "sort_order": 11,
+          "type_id": 2,
+          "words": []
+        },
+        {
+          "text_en": "light trails",
+          "text_zh": "光轨",
+          "sort_order": 12,
+          "type_id": 2,
+          "words": []
+        },
+        {
+          "text_en": "(motion blur:1.15)",
+          "text_zh": "动态模糊(权重1.15)",
+          "sort_order": 13,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "motion blur",
+              "word_zh": "动态模糊",
+              "position_start": 205,
+              "position_end": 215
+            }
+          ]
+        },
+        {
+          "text_en": "masterpiece",
+          "text_zh": "杰作",
+          "sort_order": 14,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "best quality",
+          "text_zh": "最佳质量",
+          "sort_order": 15,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "extremely detailed",
+          "text_zh": "极其精细",
+          "sort_order": 16,
+          "type_id": 5,
+          "words": []
+        },
+        {
+          "text_en": "highly quality",
+          "text_zh": "高品质",
+          "sort_order": 17,
+          "type_id": 6,
+          "words": []
+        },
+        {
+          "text_en": "4k",
+          "text_zh": "4K分辨率",
+          "sort_order": 18,
+          "type_id": 6,
+          "words": []
+        },
+        {
+          "text_en": "sharp focus",
+          "text_zh": "清晰对焦",
+          "sort_order": 19,
+          "type_id": 3,
+          "words": []
+        },
+        {
+          "text_en": "professional",
+          "text_zh": "专业级",
+          "sort_order": 20,
+          "type_id": 6,
+          "words": []
+        },
+        {
+          "text_en": "sharp focus",
+          "text_zh": "清晰对焦",
+          "sort_order": 21,
+          "type_id": 3,
+          "words": []
+        },
+        {
+          "text_en": "award winning",
+          "text_zh": "获奖级",
+          "sort_order": 22,
+          "type_id": 6,
+          "words": []
+        },
+        {
+          "text_en": "cinematic lighting",
+          "text_zh": "电影级布光",
+          "sort_order": 23,
+          "type_id": 2,
+          "words": [
+            {
+              "word_en": "cinematic lighting",
+              "word_zh": "电影级布光",
+              "position_start": 346,
+              "position_end": 364
+            }
+          ]
+        },
+        {
+          "text_en": "octane render",
+          "text_zh": "Octane渲染器",
+          "sort_order": 24,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "octane render",
+              "word_zh": "Octane渲染器",
+              "position_start": 366,
+              "position_end": 379
+            }
+          ]
+        },
+        {
+          "text_en": "unreal engine",
+          "text_zh": "虚幻引擎",
+          "sort_order": 25,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "unreal engine",
+              "word_zh": "虚幻引擎",
+              "position_start": 381,
+              "position_end": 394
+            }
+          ]
+        },
+        {
+          "text_en": "volumetrics dtx",
+          "text_zh": "体积光照DTX",
+          "sort_order": 26,
+          "type_id": 2,
+          "words": [
+            {
+              "word_en": "volumetrics dtx",
+              "word_zh": "体积光照DTX",
+              "position_start": 396,
+              "position_end": 411
+            }
+          ]
+        },
+        {
+          "text_en": "Wallpaper",
+          "text_zh": "壁纸级",
+          "sort_order": 27,
+          "type_id": 6,
+          "words": []
+        }
+      ]
+    },
+    {
+      "title": "动漫_371",
+      "text_en_full": "(closed mouth:1.4), <lora:HerrscherAGGA2023_Rukia_V1:0.9>, kuchiki rukia, blue eyes, black hair, hair between eyes, <lora:edgRoboGown:1>, (ballgown:1.1), (edgmecha:1.3), dress, (wearing wick suit:1.2), city,, (masterpiece, high quality, best quality:1.3), Detailed",
+      "text_zh_full": "",
+      "category": "动漫",
+      "source_file": "动漫_371_淘宝晴空创意坊.xlsx",
+      "statements": [
+        {
+          "text_en": "(closed mouth:1.4)",
+          "text_zh": "闭口(权重1.4)",
+          "sort_order": 1,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "<lora:HerrscherAGGA2023_Rukia_V1:0.9>",
+          "text_zh": "Lora:HerrscherAGGA2023_Rukia(权重0.9)",
+          "sort_order": 2,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "HerrscherAGGA2023_Rukia_V1",
+              "word_zh": "Lora:赫舍尔AGGA2023露琪亚V1",
+              "position_start": 26,
+              "position_end": 53
+            }
+          ]
+        },
+        {
+          "text_en": "kuchiki rukia",
+          "text_zh": "朽木露琪亚",
+          "sort_order": 3,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "kuchiki rukia",
+              "word_zh": "朽木露琪亚(角色名)",
+              "position_start": 59,
+              "position_end": 72
+            }
+          ]
+        },
+        {
+          "text_en": "blue eyes",
+          "text_zh": "蓝色眼睛",
+          "sort_order": 4,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "black hair",
+          "text_zh": "黑色头发",
+          "sort_order": 5,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "hair between eyes",
+          "text_zh": "头发垂于眼间",
+          "sort_order": 6,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "<lora:edgRoboGown:1>",
+          "text_zh": "Lora:edgRoboGown(权重1)",
+          "sort_order": 7,
+          "type_id": 6,
+          "words": [
+            {
+              "word_en": "edgRoboGown",
+              "word_zh": "Lora:机器人礼服",
+              "position_start": 122,
+              "position_end": 134
+            }
+          ]
+        },
+        {
+          "text_en": "(ballgown:1.1)",
+          "text_zh": "舞会礼服(权重1.1)",
+          "sort_order": 8,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "ballgown",
+              "word_zh": "舞会礼服",
+              "position_start": 139,
+              "position_end": 147
+            }
+          ]
+        },
+        {
+          "text_en": "(edgmecha:1.3)",
+          "text_zh": "机甲风格(权重1.3)",
+          "sort_order": 9,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "edgmecha",
+              "word_zh": "机甲风格",
+              "position_start": 155,
+              "position_end": 163
+            }
+          ]
+        },
+        {
+          "text_en": "dress",
+          "text_zh": "连衣裙",
+          "sort_order": 10,
+          "type_id": 4,
+          "words": []
+        },
+        {
+          "text_en": "(wearing wick suit:1.2)",
+          "text_zh": "穿着紧身战衣(权重1.2)",
+          "sort_order": 11,
+          "type_id": 4,
+          "words": [
+            {
+              "word_en": "wick suit",
+              "word_zh": "紧身战衣",
+              "position_start": 186,
+              "position_end": 195
+            }
+          ]
+        },
+        {
+          "text_en": "city",
+          "text_zh": "城市",
+          "sort_order": 12,
+          "type_id": 8,
+          "words": []
+        },
+        {
+          "text_en": "(masterpiece",
+          "text_zh": "杰作",
+          "sort_order": 13,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "high quality",
+          "text_zh": "高品质",
+          "sort_order": 14,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "best quality:1.3)",
+          "text_zh": "最佳质量(权重1.3)",
+          "sort_order": 15,
+          "type_id": 1,
+          "words": []
+        },
+        {
+          "text_en": "Detailed",
+          "text_zh": "精细",
+          "sort_order": 16,
+          "type_id": 5,
+          "words": []
+        }
+      ]
+    }
+  ]
+}

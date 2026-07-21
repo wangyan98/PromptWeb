@@ -3,6 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { promptsApi, type PromptListItem, type PaginatedResponse } from '@/api/prompts'
 import SearchBar from '@/components/SearchBar.vue'
+import PageNav from '@/components/PageNav.vue'
 import StatementTypeManager from './StatementTypeManager.vue'
 import ImportPage from './ImportPage.vue'
 
@@ -134,11 +135,7 @@ function truncate(text: string, max: number): string {
       <div class="loading" v-else>加载中...</div>
 
       <!-- Pagination -->
-      <div class="pagination" v-if="total > pageSize">
-        <button class="btn btn-sm" :disabled="page <= 1" @click="page--">上一页</button>
-        <span class="page-info">{{ page }} / {{ Math.ceil(total / pageSize) }}</span>
-        <button class="btn btn-sm" :disabled="page >= Math.ceil(total / pageSize)" @click="page++">下一页</button>
-      </div>
+      <PageNav class="pagination" v-model="page" :total="total" :page-size="pageSize" />
     </div>
 
     <!-- Tab: Statement Types -->
@@ -308,8 +305,5 @@ h1 {
   margin-top: var(--space-lg);
 }
 
-.page-info {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
+
 </style>

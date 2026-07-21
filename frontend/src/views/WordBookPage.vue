@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import PageNav from '@/components/PageNav.vue'
 import { globalApi, type GlobalWordItem, type GlobalPaginatedResponse } from '@/api/global'
 import { useSettingsStore, type WordCardDisplayMode } from '@/stores/settings'
 import WordCardGrid from '@/components/WordCardGrid.vue'
@@ -44,7 +45,7 @@ const modes: { key: WordCardDisplayMode; label: string }[] = [
   { key: 'dots', label: '色点' },
 ]
 
-const totalPages = () => Math.max(1, Math.ceil(total.value / pageSize))
+
 </script>
 
 <template>
@@ -83,11 +84,7 @@ const totalPages = () => Math.max(1, Math.ceil(total.value / pageSize))
     <div class="loading" v-else>加载中...</div>
 
     <!-- Pagination -->
-    <div class="pagination" v-if="total > pageSize">
-      <button class="btn btn-sm" :disabled="page <= 1" @click="page--">上一页</button>
-      <span class="page-info">{{ page }} / {{ totalPages() }}</span>
-      <button class="btn btn-sm" :disabled="page >= totalPages()" @click="page++">下一页</button>
-    </div>
+    <PageNav class="pagination" v-model="page" :total="total" :page-size="pageSize" />
   </div>
 </template>
 
@@ -170,8 +167,5 @@ h1 {
   margin-top: var(--space-lg);
 }
 
-.page-info {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
+
 </style>
