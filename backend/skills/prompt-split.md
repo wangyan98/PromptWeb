@@ -27,7 +27,7 @@ A JSON object:
 
 ### Step 1: Split into sentences
 
-Split the English prompt at natural semantic boundaries (commas, conjunctions). Each segment should be a meaningful phrase. Typically 3-8 segments.
+Split the English prompt at natural semantic boundaries (commas, semicolons, periods, question/exclamation marks, and their Chinese equivalents). Each segment should be a meaningful phrase. Typically 3-8 segments.
 
 For each segment:
 - Extract the English text
