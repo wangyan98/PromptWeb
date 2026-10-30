@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import PageNav from '@/components/PageNav.vue'
+import { BookOpen } from 'lucide-vue-next'
 import { globalApi, type GlobalStatementItem, type GlobalPaginatedResponse } from '@/api/global'
 import { statementTypesApi, type StatementTypeItem } from '@/api/statement-types'
 
@@ -60,7 +61,7 @@ function getTypeColor(typeColor: string): string {
 
 <template>
   <div class="statement-book-page">
-    <h1>📖 语句本</h1>
+    <h1 class="page-title"><BookOpen :size="22" :stroke-width="1.8" /> 语句本</h1>
 
     <!-- Toolbar -->
     <div class="toolbar">
@@ -141,6 +142,13 @@ h1 {
   font-size: var(--font-size-xl);
   color: var(--color-text-primary);
   margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h1 :deep(svg) {
+  color: var(--color-accent);
 }
 
 .toolbar {

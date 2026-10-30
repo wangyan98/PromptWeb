@@ -243,7 +243,9 @@ def cmd_extract(filepath, en_idx, zh_idx, title_idx, cat_idx, sheet_name):
             continue
         en_text = get_cell(row, en_idx)
         zh_text = get_cell(row, zh_idx)
-        if not zh_text:
+        # Skip only rows that have neither English nor Chinese prompt text
+        # (allows collections that provide only an English column).
+        if not en_text and not zh_text:
             continue
         title = get_cell(row, title_idx)
         category = get_cell(row, cat_idx)

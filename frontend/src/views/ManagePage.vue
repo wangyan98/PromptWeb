@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { Plus, ImageIcon } from 'lucide-vue-next'
 import { promptsApi, type PromptListItem, type PaginatedResponse } from '@/api/prompts'
 import SearchBar from '@/components/SearchBar.vue'
 import PageNav from '@/components/PageNav.vue'
@@ -104,7 +105,7 @@ function truncate(text: string, max: number): string {
     <div class="tab-content" v-show="activeTab === 'prompts'">
       <div class="tab-header">
         <SearchBar v-model:search="search" v-model:category="category" :categories="categories" />
-        <button class="btn btn-primary" @click="goNew">+ 新增 Prompt</button>
+        <button class="btn btn-primary" @click="goNew"><Plus :size="15" /> 新增 Prompt</button>
       </div>
 
       <div class="manage-table" v-if="!loading">
@@ -121,7 +122,7 @@ function truncate(text: string, max: number): string {
         >
           <div class="col-thumb">
             <img v-if="item.thumbnail_url" :src="item.thumbnail_url" class="thumb-img" alt="" />
-            <div v-else class="thumb-placeholder">🖼️</div>
+            <div v-else class="thumb-placeholder"><ImageIcon :size="16" :stroke-width="1.6" /></div>
           </div>
           <div class="col-en">{{ truncate(item.text_en_full, 100) }}</div>
           <div class="col-zh">{{ truncate(item.text_zh_full, 60) }}</div>

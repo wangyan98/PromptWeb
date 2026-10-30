@@ -1,0 +1,432 @@
+Midjourney V8.2
+巨构建筑提示词全集
+共计 55 组 · 中英双语 · 适配 MJ V8.2
+--style raw · 电影级写实 · 巨物压迫美学
+使用说明
+?本文档收录全部 55 组 Midjourney V8.2 提示词，每组均包含中文与英文两个独立版本。
+?中文提示词用于理解画面构成与风格意图；英文提示词为 MJ 原生最优语法，可直接复制生成。
+?统一参数后缀：--ar 9:16（竖版）或 --ar 16:9（横版），--style raw，--v 8.2，--profile ou2n7ej。
+?--style raw 可降低 MJ 默认美化，还原原图冷静写实的粗野质感。
+?如需强化巨物压迫感，可追加关键词：monumental scale, human dwarfed by architecture。
+?如需强化雾气氛围，可追加：volumetric fog, atmospheric haze。
+?如人物比例过大，可追加：human figure is extremely tiny / minuscule。
+
+
+第一批 · 苏联粗野主义巨构（6组）
+
+1-1. 雪原黄昏·无尽延伸巨楼阵列
+【中文提示词】
+电影级写实摄影，苏联粗野主义巨型板式住宅楼阵列，向远方无限延伸的超尺度巨构建筑，风化斑驳的清水混凝土外墙，密集的居民窗户透出暖黄色灯光，建筑底部是积雪覆盖的冻土平原，远处城市灯火朦胧，粉紫色黄昏暮色，冷雾弥漫，空气透视，极致纵深透视，渺小的人物在地面行走作为尺度参照，静谧宏大的氛围，8K超高清，精细材质细节，广角镜头，冷色调为主暖光点缀 --v 8.2 --style raw --ar 9:16 --profile ou2n7ej
+
+【English Prompt】
+Cinematic realistic photography, Soviet brutalist giant slab residential building array, infinite extending megastructure towards the horizon, weathered mottled fair-faced concrete exterior wall, dense residential windows with warm yellow lights, snow-covered permafrost plain at the base of buildings, hazy city lights in the distance, pink-purple dusk twilight, cold fog permeating, atmospheric perspective, extreme depth perspective, tiny human figure walking on the ground as scale reference, quiet grand atmosphere, 8K ultra HD, fine material details, wide-angle lens, dominant cool tone with warm light accents --v 8.2 --style raw --ar 9:16 --profile ou2n7ej
+
+1-2. 草原雾中·巨型混凝土立柱阵列
+【中文提示词】
+电影级写实摄影，巨型粗野主义混凝土立柱阵列，巨大的清水混凝土墙体从绿色草坡中拔起，向远方无限延伸，风化斑驳的水泥肌理，晨雾弥漫的山谷草原，柔和侧光打在混凝土表面，极致纵深透视，渺小的黑衣人物站在草坡上作为尺度参照，静谧荒凉的氛围，青绿色调，薄雾空气透视，8K超高清，精细自然与建筑材质，广角镜头，低角度平视 --v 8.2 --style raw --ar 9:16 --profile ou2n7ej
+
+【English Prompt】
+Cinematic realistic photography, giant brutalist concrete column array, huge fair-faced concrete walls rising from green grass slopes, extending infinitely into the distance, weathered mottled cement texture, valley grassland shrouded in morning fog, soft side light hitting concrete surface, extreme depth perspective, tiny figure in black standing on grass slope as scale reference, quiet desolate atmosphere, cyan-green tone, misty atmospheric perspective, 8K ultra HD, fine natural and architectural materials, wide-angle lens, low-angle eye level shot --v 8.2 --style raw --ar 9:16 --profile ou2n7ej
+
+1-3. 浮空巨构·悬浮城市板块
+【中文提示词】
+电影级写实摄影，超尺度悬浮巨型城市板块，粗野主义混凝土巨构城市悬浮于草原上空，密集的建筑肌理与窗户，厚重的建筑体量仿佛悬浮的大陆，下方是连绵起伏的绿色草甸与湖泊，晨雾弥漫，丁达尔光束穿过雾气，渺小的人物站在草地上仰望，宏大震撼的氛围，远景朦胧的城市天际线，柔和漫射天光，8K超高清，广角远景，空气透视，诗意科幻感 --v 8.2 --style raw --ar 16:9 --profile ou2n7ej
+
+【English Prompt】
+Cinematic realistic photography, oversized floating giant city block, brutalist concrete megacity suspended above grassland, dense architectural texture and windows, massive building volume like a floating continent, rolling green meadows and lakes below, morning fog permeating, Tyndall light beams through mist, tiny figure standing on grass looking up, grand shocking atmosphere, hazy city skyline in the distance, soft diffuse skylight, 8K ultra HD, wide-angle long shot, atmospheric perspective, poetic sci-fi feeling --v 8.2 --style raw --ar 16:9 --profile ou2n7ej
+
+1-4. 无尽廊道·纵深混凝土拱廊
+【中文提示词】
+电影级写实摄影，无限延伸的粗野主义混凝土廊道，层层嵌套的巨型混凝土拱结构沿道路向远方延伸，风化斑驳的水泥墙面，道路两侧是起伏的草坡，温暖侧光在地面投下重复阴影，极致一点透视，渺小的黑衣人物走在道路中央作为尺度参照，静谧宏大的氛围，光影层次丰富，8K超高清，广角镜头，写实材质，纵深消失点 --v 8.2 --style raw --ar 16:9 --profile ou2n7ej
+
+【English Prompt】
+Cinematic realistic photography, infinitely extending brutalist concrete corridor, nested giant concrete arch structures extending along the road to the distance, weathered mottled cement walls, rolling grass slopes on both sides of the road, warm side light casting repeating shadows on the ground, extreme one-point perspective, tiny figure in black walking in the middle of the road as scale reference, quiet grand atmosphere, rich light and shadow layers, 8K ultra HD, wide-angle lens, realistic texture, depth vanishing point --v 8.2 --style raw --ar 16:9 --profile ou2n7ej
+
+1-5. 雾中巨塔·超高层塔楼阵列
+【中文提示词】
+电影级写实摄影，蓝调时刻的超高层巨型塔楼阵列，细高的粗野主义混凝土摩天楼从城市中拔起，向远方无限延伸，建筑表面布满密集窗户透出暖黄色灯光，浓雾笼罩城市，底部是老旧的苏联板式住宅楼，城市灯火在雾中形成散景光斑，冷蓝色调氛围，静谧压抑的都市感，空气透视，极致纵深，8K超高清，俯拍视角，细腻雾气质感 --v 8.2 --style raw --ar 9:16 --profile ou2n7ej
+
+【English Prompt】
+Cinematic realistic photography, super-tall giant tower array at blue hour, slender brutalist concrete skyscrapers rising from the city, extending infinitely into the distance, dense windows on building surface with warm yellow lights, thick fog shrouding the city, old Soviet slab residential buildings at the bottom, city lights forming bokeh spots in the fog, cool blue tone atmosphere, quiet oppressive urban feeling, atmospheric perspective, extreme depth, 8K ultra HD, overhead perspective, delicate fog texture --v 8.2 --style raw --ar 9:16 --profile ou2n7ej
+
+1-6. 弧形巨墙·草原巨型曲面建筑
+【中文提示词】
+电影级写实摄影，巨型弧形粗野主义混凝土巨墙，巨大的曲面清水混凝土建筑横卧在起伏的草原丘陵上，风化斑驳的建筑肌理与密集窗户，柔和日光打在墙面上形成巨大阴影，下方是绵延的绿色草甸，渺小的人物站在草地上作为尺度参照，宏大空旷的氛围，远景朦胧的山脉，空气透视，8K超高清，广角平视，写实自然材质 --v 8.2 --style raw --ar 16:9 --profile ou2n7ej
+
+【English Prompt】
+Cinematic realistic photography, giant curved brutalist concrete wall, huge curved fair-faced concrete building lying on rolling grassland hills, weathered mottled architectural texture and dense windows, soft sunlight casting huge shadows on the wall, stretching green meadow below, tiny figure standing on grass as scale reference, grand empty atmosphere, hazy mountains in the distance, atmospheric perspective, 8K ultra HD, wide-angle eye level shot, realistic natural materials --v 8.2 --style raw --ar 16:9 --profile ou2n7ej
+
+
+
+第二批 · 超现实巨构建筑（10组）
+
+2-1. 月夜草原·金字塔式巨型长建筑，骑马孤人
+【中文提示词】
+电影宽幅镜头，广袤荒凉的草原旷野，夜晚，一弯新月悬于夜空，远方一座巨大超现实白色巨构建筑，中间金字塔隆起，两侧向远方无限延伸，建筑内部窗格透出温暖金色灯光，正中大门明亮发光，前景草原上一名孤独骑手骑马的黑色剪影，人物极其渺小，强烈的尺度对比，暗青蓝色夜晚氛围，氛围感，辽阔孤寂，胶片颗粒，写实摄影，8K，电影布光，宏大史诗，--ar16:9 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+cinematic wide shot, vast desolate grassland wilderness, night time, thin crescent moon hanging in dark sky, surreal huge white megastructure building in distance, central pyramid-shaped elevation, both sides stretch infinitely far away, warm golden light glowing from rows of building windows, bright glowing main gate, lone silhouetted rider on horseback on foreground grassland, human figure extremely tiny, extreme scale contrast, dark teal night atmosphere, desolate vast mood, film grain, realistic photography, 8k, cinematic lighting, epic grandeur, --ar 16:9 --style raw --v 8.2 --profile ou2n7ej
+
+2-2. 水岸巨型弧形高墙，孤人隔水相望
+【中文提示词】
+宽幅电影镜头，平静宽阔的湖水，湖对岸一座体量无比庞大的弧形巨型混凝土高墙建筑，墙面竖向肌理，墙体一端高大圆筒造型，远处缓缓弯曲延伸，墙身被黄昏暖金色侧光打亮，墙面底部有一座幽深拱形小门，前景岸边站立一个渺小孤独的男人背影，强烈人与建筑尺度差，蓝调暮色，极简超现实，写实，胶片质感，静谧孤寂，8K，--ar16:9 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+wide cinematic shot, calm wide lake water, enormous curved giant concrete megastructure wall across the lake, vertical texture on wall surface, one end of wall is huge cylindrical volume, wall curves far into distance, wall illuminated by warm golden dusk side-light, deep arched small gate at wall base, tiny lone man standing on foreground shore seen from back, dramatic human-to-building scale difference, blue hour twilight, minimalist surrealism, photorealistic, film texture, quiet lonely mood, 8k, --ar 16:9 --style raw --v 8.2 --profile ou2n7ej
+
+2-3. 巨型环形废弃内构巨构，旷野孤人
+【中文提示词】
+宽幅镜头，一望无际的旷野草地，面前是一座无穷巨大的环形废弃巨型建筑内壁，层层堆叠的老旧框架结构，巨大深邃环形内壁，局部暖光打在巨型墙体上，前景草地上站立一个渺小白衣人物，极致尺度压迫感，幽暗昏暗氛围，末世超现实，写实摄影，电影光影，胶片颗粒，8K，孤寂宏大，--ar16:9 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+wide shot, endless wild grass field, infinitely huge circular abandoned megastructure inner wall in front, layered old framework structure, massive deep circular inner cavity, partial warm light hitting giant wall, tiny figure in white clothing standing on foreground grass, overwhelming scale oppression, dim gloomy atmosphere, post-apocalyptic surreal, photorealistic, cinematic lighting, film grain, 8k, lonely grand atmosphere, --ar 16:9 --style raw --v 8.2 --profile ou2n7ej
+
+2-4. 海岸山坡巨型高层公寓城市群，阴雨
+【中文提示词】
+竖幅，沿海起伏草坡，连绵无尽的巨型苏联风格高层公寓楼群顺着山坡向远方蔓延，楼房窗口点点灯火，潮湿阴雨天气，雨丝朦胧，海就在画面右侧，青绿色冷调，薄雾弥漫，宏大压抑，超现实城市巨构，写实摄影，电影感，雾气景深，8K，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical composition, undulating grassy coastal hills, endless sprawling giant soviet-style high-rise apartment blocks stretching far over hills, small glowing window lights, damp rainy weather, soft rain haze, ocean shore on right side of frame, cool teal-green color palette, mist fog, grand oppressive feeling, surreal urban megastructure, photorealistic, cinematic atmosphere, misty depth of field, 8k, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+2-5. 巨型地层环状天坑，坑边渺小人物，远处废弃楼房
+【中文提示词】
+竖幅，巨大螺旋向下的地层环状巨型天坑，层层卷曲裸露地质岩壁，翠绿草甸覆盖坑沿，坑边岩石上站着一个极其渺小的人，远方草地上矗立几栋废弃高层楼房，超现实地质巨构，俯拍，冷青色调，辽阔孤寂，写实摄影，电影光影，8K，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical shot, gigantic spiral layered circular sinkhole, folded exposed geological rock strata, green meadow covering pit rim, extremely tiny human figure standing on pit edge rock, several abandoned high-rise buildings standing on distant grassland, surreal geological megastructure, high angle overlook, cool teal tone, vast lonely mood, photorealistic, cinematic lighting, 8k, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+2-6. 多层浮空倒置巨型都市遗迹，旷野独行人物
+【中文提示词】
+竖幅，辽阔平原草地，天空中悬浮层层交错、倒置堆叠的巨型残破都市遗迹巨构，庞大复杂建筑板块漂浮在空中，地面小路上一个渺小孤身行人向前行走，超现实科幻巨构，日光漫射，远景朦胧，写实，胶片质感，宏大辽阔，8K，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical composition, wide open grass plain, layers of interlaced upside-down ruined city megastructures suspended floating in sky, massive complex floating building plates, tiny lone pedestrian walking forward on ground dirt path, surreal sci-fi megastructure, diffused daylight, hazy distant background, photorealistic, film texture, vast epic atmosphere, 8k, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+2-7. 山谷中多座刀锋状巨型石碑巨构，两名渺小人物
+【中文提示词】
+竖幅，草甸山谷湿地，数座体量无比庞大刀锋造型巨型风化混凝土石碑建筑矗立山谷，巨大高耸棱角建筑缝隙透出狭长金色光线，前景草地上两个渺小人物远远望向巨构，强烈尺度对比，阴天柔和漫射光，超现实远古巨构，写实摄影，电影氛围感，8K，孤寂肃穆，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical shot, meadow valley wetlands, several enormous blade-shaped weathered concrete monolith megastructures standing inside valley, narrow golden light shining through gaps of huge angular towering buildings, two tiny human figures on foreground grass looking toward megastructures, dramatic scale contrast, soft diffused overcast light, surreal ancient megastructure, photorealistic, cinematic mood, 8k, solemn lonely atmosphere, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+2-8. 湿地河道，缠绕交织巨型弧形环拱巨构
+【中文提示词】
+竖幅，沼泽湿地，蜿蜒小河，前景河道中站着渺小黑衣男人，视野透过巨型镂空环拱建筑，无数巨大交错扭曲白色混凝土弧形巨构向远方无限延展，厚重风化建筑肌理，多云阴沉天空，超现实远古巨构，写实摄影，胶片颗粒，静谧压抑，8K，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical composition, marsh wetland, winding small river, tiny man in black standing in foreground stream, view framed through giant hollow arch megastructure, countless huge intertwined twisted white concrete arc megastructures stretch endlessly to distance, heavy weathered building texture, cloudy gloomy sky, surreal primordial megastructure, photorealistic, film grain, quiet oppressive mood, 8k, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+2-9. 旷野巨型粗粝圆筒拱门巨构，地面渺小行人
+【中文提示词】
+竖幅，辽阔平缓草原，地面上一个非常渺小的行人，背景是无穷高大的巨型圆筒拱门式远古巨构建筑，厚重风化混凝土墙体，布满岁月侵蚀的斑驳肌理，巨大深邃拱门，柔和日间自然光，超现实，史诗宏大，写实摄影，胶片质感，8K，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical shot, wide flat grassland, very tiny pedestrian on ground, background dominated by infinitely tall ancient megastructure of giant cylindrical arch gates, heavy weathered concrete walls, eroded textured surface, huge deep arch openings, soft natural daylight, surreal epic grandeur, photorealistic, film texture, 8k, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+2-10. 湖面旷野，天空多层倾斜悬浮巨型岩层建筑
+【中文提示词】
+竖幅，开阔草原湖泊，湖边站立一个渺小男人，天空中层层叠叠倾斜悬浮着巨大如岩层一般的巨型建筑板块，体量无穷庞大，淡蓝薄雾空气，白日柔和天光，超现实巨构，静谧辽阔，写实摄影，电影景深，8K，--ar9:16 --style raw --v8.2 --profile ou2n7ej
+
+【English Prompt】
+vertical composition, open grassland lake, tiny man standing beside lake shore, massive rock-like building plates stacked and tilted floating in layers across sky, immense scale, pale blue misty atmosphere, soft daytime light, surreal megastructure, quiet vast feeling, photorealistic, cinematic depth of field, 8k, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+
+
+第三批 · 苏式野兽派超现实建筑（10组）
+
+3-1. 巨型流线型野兽派未来发射塔建筑
+【中文提示词】
+写实摄影，两座巨型流线型野兽派未来发射塔建筑，白色曲面混凝土结构，坐落在起伏绿色草甸山丘，远处跑道停放喷气飞机，高空有飞行器拖曳尾迹，深邃青蓝色天空，尺度巨大，渺小人物，宏大压迫感，电影级光影，细节丰富，8K超写实，胶片质感，超广角，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, two giant streamlined brutalist futuristic launch tower buildings, white curved concrete structure, located on rolling green meadow hills, jet aircraft parked on distant runway, high-altitude aircraft with contrails, deep teal-blue sky, gigantic scale, tiny human figures, imposing grand atmosphere, cinematic lighting, rich details, 8K ultra-realism, film grain, ultra-wide-angle, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-2. 无限延伸的巨型苏式板式住宅楼墙
+【中文提示词】
+写实摄影，无限延伸的巨型苏式板式住宅楼墙，连绵消失在远方晨雾，巨大垂直建筑墙体，茂密针叶森林，广阔翠绿草甸，清晨柔和阳光，薄雾弥漫，人类极其渺小，宏大超现实，现实主义，电影感，8K，超广角，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, infinitely extending giant Soviet-style prefabricated apartment wall, stretching far into morning mist, massive vertical building facade, dense coniferous forest, vast green meadow, soft morning sunlight, mist drifting, extremely tiny humans, surreal grand scale, realism, cinematic look, 8K, ultra-wide-angle, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-3. 如山峦般堆叠聚集的巨型苏联板式居民楼
+【中文提示词】
+写实摄影，如山峦般堆叠聚集的巨型苏联板式居民楼，层层叠叠向上堆砌形成巨大建筑山体，下方平整高尔夫草坪，晴朗蓝天，粗野主义混凝土建筑，尺度宏大，超现实奇观，写实摄影，日光，细节丰富，8K，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, mountain-like stacked giant Soviet panel residential buildings, tiered stacked upward forming massive building mountain, flat golf lawn in foreground, clear blue sky, brutalist concrete architecture, monumental surreal spectacle, realistic photography, daylight, highly detailed, 8K, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-4. 草原上一排巨型仿生机械树建筑
+【中文提示词】
+写实摄影，草原上一排巨型仿生机械树建筑，巨大伞状太阳能面板树冠，复杂钢结构支架，连绵绿色起伏山地，远处层叠山脉，晴朗淡蓝色天空，野兽派科幻建筑，宏大尺度，广阔自然，电影级写实，8K，超广角，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, row of giant bionic mechanical tree structures on grassland, huge umbrella-shaped solar panel canopies, complex steel framework, rolling green mountain terrain, distant layered mountain ranges, pale clear blue sky, brutalist sci-fi architecture, massive scale, vast wilderness landscape, cinematic photorealism, 8K, ultra-wide-angle, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-5. 山谷中数座巨型拱形粗野主义混凝土巨构建筑
+【中文提示词】
+写实摄影，山谷中数座巨型拱形粗野主义混凝土巨构建筑，高耸巨型拱门，云雾缠绕建筑中部，幽深青绿山林，山间蜿蜒公路大桥，潮湿雾气氛围，阴郁青调，宏伟史诗感，超现实巨物，8K写实摄影，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, several gigantic arched brutalist concrete megastructures deep in mountain valley, towering giant archways, mist swirling around mid-building, dark green forest mountains, winding mountain highway viaduct, damp foggy atmosphere, cool teal tone, epic monumental feeling, surreal giant objects, 8K realistic photography, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-6. 山谷上空多层堆叠的无尽巨型悬空平台巨构建筑
+【中文提示词】
+写实摄影，山谷上空多层堆叠的无尽巨型悬空平台巨构建筑，巨大复古苏式混凝土结构，云层穿梭在建筑之间，下方辽阔山谷草原，地面几个极其渺小行人，宏大磅礴，超现实科幻，电影写实，广角镜头，8K，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, endless multi-layer floating megastructure platforms hanging above mountain valley, massive retro Soviet concrete construction, clouds drift through architecture, vast valley grassland below, several extremely tiny human figures on ground, magnificent surreal sci-fi scene, cinematic realism, wide-angle shot, 8K, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-7. 海岸边一排巨型破碎风化的方尖碑摩天巨柱
+【中文提示词】
+写实摄影，海岸边一排巨型破碎风化的方尖碑摩天巨柱，高大粗糙混凝土建筑，前景漫山遍野缤纷野花，海岸线海洋，晴朗澄澈蓝天，地面孤独渺小的行人，巨物压迫感，史诗氛围感，写实胶片摄影，8K，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, row of giant weathered obelisk skyscraper monoliths along coastline, huge rough concrete buildings, foreground hills full of colorful wildflowers, ocean shoreline, crystal clear blue sky, single tiny lone pedestrian on ground, gigantic imposing sense, epic atmosphere, film photography, 8K, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-8. 无尽延伸的巨型混凝土拱形廊道巨构
+【中文提示词】
+写实摄影，无尽延伸的巨型混凝土拱形廊道巨构，重复循环巨大拱形结构向远方透视消失，风化锈蚀旧混凝土材质，地面荒凉滩涂草地，一个渺小独自行走的人，强烈透视，宏大空旷孤寂，超现实，写实摄影，8K，超广角，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, endlessly stretching giant concrete arched corridor megastructure, repeating massive arches recede with perspective into far distance, weathered rusted old concrete texture, desolate mudflat grass ground, one tiny lone walking human, strong perspective, vast empty solitude, surreal aesthetic, realistic photograph, 8K, ultra-wide-angle, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-9. 河边巨型曲面粗野主义混凝土拱墙建筑
+【中文提示词】
+写实俯拍，河边巨型曲面粗野主义混凝土拱墙建筑，巨大弧形墙体沿河岸排布，蜿蜒河流河滩草地，地面渺小独行人物，柔和侧光，辽阔地貌，极简巨物美学，电影级写实，细节丰富，8K，高空俯视镜头，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic high-angle shot, giant curved brutalist concrete arch walls along riverbank, huge curved structures following river shore, winding river and riverbank meadow, tiny lone human figure on ground, soft side lighting, wide landform, minimalist megalith aesthetic, cinematic realism, intricate details, 8K, high altitude top-down view, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+3-10. 草原平原上一座巨型三角斜面粗野主义纪念碑巨构
+【中文提示词】
+写实摄影，草原平原上一座巨型三角斜面粗野主义纪念碑巨构，厚重灰色混凝土，分裂式高耸塔尖，辽阔旷野草地，厚重翻滚云层，地面孤独渺小行人，宏伟肃穆，苏式野兽派，戏剧光影，史诗感，8K写实胶片，--ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+photorealistic photo, one giant slanted triangular brutalist monument megastructure on plain grassland, heavy grey concrete, split soaring spire top, wide open wilderness meadow, heavy rolling storm clouds, lone tiny pedestrian on ground, solemn monumental vibe, Soviet brutalism, dramatic lighting, epic atmosphere, 8K film photograph, --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+
+
+第四批 · 国风幻想巨构 & 科幻摩天巨城（10组）
+
+4-1. 山海巨型拱型古建岛
+【中文提示词】
+电影级远景镜头，辽阔青绿色起伏草原，画面下方一个渺小的古代长袍男子背影，远方海洋上矗立一座巨型奇幻中式古建岛屿，山体形成巨大天然石拱门，巨大的重檐中式古建筑生长在山体顶端，墙体爬满青苔藤蔓，蓝天白云，蓬松积云，海面平静，史诗幻想国风，柔和日光，超写实3D渲染，UE5，广阔宏大的压迫感，低饱和度，细腻材质，景深，广角，--ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+cinematic wide shot, vast undulating green grassland, tiny back-view ancient chinese robed man at bottom of frame, giant fantasy ancient chinese architecture island standing in distant ocean, huge natural stone arch formed by mountain, massive multi-eave ancient chinese building on mountain top, walls covered with moss and vines, blue sky with fluffy cumulus clouds, calm sea surface, epic chinese fantasy, soft daylight, photorealistic 3d render, Unreal Engine 5, grand overwhelming scale, low saturation, detailed textures, depth of field, wide-angle, --ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-2. 海岸线绵延古建群
+【中文提示词】
+电影级远景，一望无际青绿色平缓草原，渺小古装人物向前行走，海岸线向远方无限延伸，一整排连绵无尽的巨型中式楼阁宫殿建筑，层层叠叠，薄雾笼罩，淡青蓝色大气雾霭，海平面，辽阔天地，国风幻想，清冷清晨光线，UE5渲染，宏大壮阔，氛围感，低对比度，广角镜头，景深，--ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+cinematic wide view, endless flat green grassland, tiny ancient chinese figure walking forward, coastline stretching infinitely far distance, endless row of giant layered ancient chinese pavilion palaces, shrouded in thin mist, pale cyan-blue atmospheric haze, sea horizon, vast world, chinese fantasy aesthetic, cool early morning light, Unreal Engine 5 render, magnificent grand scene, atmospheric mood, low contrast, wide-angle lens, depth of field, --ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-3. 月夜海中孤塔
+【中文提示词】
+暗调氛围感远景，海面礁石上一个渺小古装人物背影，海面中央巨型巍峨中式古塔依附巨大悬崖礁石，岩石遍布青苔，暗绿色朦胧夜色天空，天边一弯巨大的淡绿色月牙，海雾弥漫，寂静荒凉，东方奇幻，幽冷月光，UE5，写实渲染，压抑静谧，低亮度，广角，景深，--ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+dark atmospheric wide shot, tiny back-view ancient chinese figure standing on sea reef, giant towering ancient chinese pagoda attached to huge cliff rock in middle of sea, rocks covered with moss, dim hazy dark-green night sky, huge pale-green crescent moon on horizon, thick sea mist, desolate quiet mood, oriental fantasy, cold moon light, Unreal Engine 5 photorealistic render, somber tranquil atmosphere, low brightness, wide-angle, depth of field, --ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-4. 海岸山巅仙宫
+【中文提示词】
+电影远景，沙滩海岸，渺小黑袍人物行走在海滩，一座巨大完整的中式宫殿仙宫建筑群盘踞在整座覆满绿植的高山山顶，层叠亭台楼阁，远处奇峰怪石，近海海浪，雨林棕榈植物，阴雨天薄雾弥漫，朦胧水汽，国风仙侠幻想，柔和漫射光，UE5，宏大磅礴，写实，景深，广角，--ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+cinematic wide shot, sandy seashore beach, tiny black-robed figure walking on beach, huge complete ancient chinese immortal palace complex perched atop a full green-covered mountain, layered pavilions and terraces, jagged distant mountain peaks, ocean surf on shore, rainforest palm plants, misty overcast weather, hazy water vapor, chinese xianxia fantasy aesthetic, soft diffused light, Unreal Engine 5, grand monumental scale, photorealistic, depth of field, wide-angle, --ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-5. 草原云海巨构古殿
+【中文提示词】
+辽阔起伏青绿色草甸山坡，渺小古装男子背影，远方云海雾气之中浮现一座体量巨大的堆叠式中式重檐巨殿，建筑层层交错堆叠，破晓淡蓝紫调天光，薄雾缠绕建筑底部，天地辽阔，史诗国风幻想，清晨柔和侧光，UE5渲染，超写实，宏大压迫感，广角远景，景深，--ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+vast rolling green meadow hillside, tiny back-view ancient chinese man, colossal stacked multi-eave ancient chinese giant palace emerging from distant sea of clouds, interlaced layered architecture, dawn sky with pale blue-purple tone, thin mist wrapping building base, immense world scale, epic chinese fantasy, soft morning side light, Unreal Engine 5 render, photorealistic, overwhelming monumental scale, wide-angle distant shot, depth of field, --ar 16:9 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-6. 旷野巨型摩天长城 蓝光
+【中文提示词】
+高空航拍俯视镜头，巨大绵延无尽的未来超高层摩天楼构筑成巨型长城墙体，向着天际无限延伸，楼体窗户点点灯火，下方辽阔旷野、蜿蜒河流，深蓝色黄昏，远处云雾倾泻而下，史诗科幻幻想，电影级光照，UE5，宏大壮阔，超写实，大气薄雾，景深，--ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+high altitude aerial top-down shot, endless giant futuristic skyscrapers forming massive great-wall-like barrier stretching toward horizon, tiny lit windows on buildings, vast wilderness and winding river below, deep blue dusk atmosphere, cascading distant cloud mist, epic sci-fi fantasy, cinematic lighting, Unreal Engine 5, monumental grand scale, photorealistic, atmospheric haze, depth of field, --ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-7. 水岸摩天巨墙 落日反光
+【中文提示词】
+高空航拍，一整条无尽的巨型摩天大楼组成连绵巨墙沿水岸排布，建筑在水面形成金色落日倒影，湿地沼泽水面与零星小岛，清晨金色逆光，云雾缭绕，辽阔大地，科幻史诗场景，超写实，UE5，柔和丁达尔，氛围感，景深，--ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+high altitude aerial shot, endless continuous massive skyscraper wall along water shore, golden sunset reflections of buildings on water surface, wetland marsh water with scattered small islands, golden early-morning backlight, swirling mist clouds, vast land, epic sci-fi scene, photorealistic, Unreal Engine 5, soft god rays, atmospheric mood, depth of field, --ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-8. 倾斜巨型摩天群
+【中文提示词】
+高空俯瞰，一排极其高大的倾斜巨型曲面摩天塔楼，向远方透视延伸，塔楼窗户微光闪烁，塔楼下方是辽阔绿色平原、湖泊、零星小镇聚落，黄昏日落时分，天边粉橙色霞光，厚重云层，科幻史诗，UE5渲染，写实，宏大压迫尺度，薄雾，景深，--ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+high-angle overlook view, row of extremely tall leaning curved giant skyscraper towers receding into distance, faint glimmer lights on tower windows, wide green plains, lakes and scattered small towns below towers, sunset dusk, pink-orange glow on horizon, heavy cloud cover, epic sci-fi world, Unreal Engine 5 render, photorealistic, overwhelming monumental scale, light haze, depth of field, --ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-9. 山谷圣城 圣光
+【中文提示词】
+竖版航拍，两座巍峨高山峡谷之间，山谷深处坐落一座巨型白色科幻圣城，中心最高巨塔顶端有神圣光束从云层穿透洒落，城市由下向上层层抬升，山下湖泊水面反射城市灯火，冷调阴云天气，史诗奇幻，肃穆神圣，超写实，UE5，电影光影，景深，--ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+vertical aerial shot, deep valley between two huge steep mountains, giant white sci-fi holy city built inside valley, divine light beam piercing clouds down onto central tallest spire, city terraced upward from valley bottom, mountain lake reflecting city lights, cool cloudy weather, epic high fantasy, solemn sacred atmosphere, photorealistic, Unreal Engine 5, cinematic lighting, depth of field, --ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+4-10. 弧形环湖摩天巨墙 晚霞
+【中文提示词】
+高空大俯拍，一道巨大弧形无尽摩天大楼墙体环绕宽阔湖泊，黄昏晚霞，橘粉色火烧云，夕阳的金光打在巨墙建筑立面上，墙下绿色旷野、小型水塘，云层漫过建筑顶端，壮阔科幻幻想，薄雾弥漫，UE5，超写实，宏大史诗，景深，--ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+【English Prompt】
+high-angle wide aerial shot, massive curved endless skyscraper wall surrounding large lake, sunset dusk glow, orange-pink burning clouds, golden sunset light hitting facade of giant wall buildings, green wilderness and small ponds below wall, clouds overflowing building tops, spectacular sci-fi fantasy world, diffused mist, Unreal Engine 5, photorealistic, epic monumental scale, depth of field, --ar 9:16 --style raw --v 8.2 --q 2 --profile ou2n7ej
+
+
+
+第五批 · 末日科幻都市 & 东方玄幻巨构（10组）
+
+5-1. 绵延巨型光刃摩天都市
+【中文提示词】
+宏大远景，悬崖高地视角，一望无际的巨型垂直摩天建筑群，城市墙体如同发光金色光刃绵延向远方，强烈丁达尔光束穿透厚重乌云，下方是广袤枯黄平原田野，地面崎岖岩石山坡，强烈史诗氛围感，超写实，电影级光照，朦胧大气雾霭，巨大尺度对比，末日科幻，8k，细节丰富，电影概念美术 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Epic wide shot, view from cliff highland, endless giant vertical skyscraper complex, city walls stretch far away like glowing golden light blades, strong crepuscular rays pierce heavy dark clouds, vast dry yellow plains and farmland below, rugged rocky hillside foreground, grand epic atmosphere, photorealistic, cinematic lighting, atmospheric haze, massive scale contrast, dystopian sci-fi, 8k, highly detailed, movie concept art --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-2. 暮色荒野遥望巨型灯火都市
+【中文提示词】
+黄昏暮色，前景枯黄野草荒原，远处地平线上耸立巨型密集未来都市，万家灯火暖金色灯光，低空薄雾弥漫，旷野上孤零零老旧拖车，远山昏暗，沉静孤寂氛围，超写实，电影质感，柔和侧逆光，景深，写实环境，8k概念场景 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Dusk twilight, foreground with dry yellow wild grass wilderness, huge dense futuristic metropolis standing on distant horizon, warm golden glowing city lights, low-lying mist, an old lonely trailer in wilderness, dim distant mountains, quiet lonely mood, photorealistic, cinematic texture, soft side backlight, depth of field, realistic environment, 8k concept scene --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-3. 山巅层叠巨构山城河谷
+【中文提示词】
+高空俯视镜头，建造在陡峭山体悬崖之上的巨型层叠巨型城市，巨型垂直晶体摩天楼，建筑边缘被清晨金色阳光照亮，山间河谷河流蜿蜒，水面反射金光，山谷弥漫薄雾，下方密布低矮居民区，远山云雾，宏大奇幻科幻城市，电影概念图，超写实，丰富建筑细节 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+High-angle aerial shot, massive layered megacity built on steep mountain cliffs, giant vertical crystal skyscrapers, building edges lit by early morning golden sunlight, winding river valley, golden light reflection on water surface, mist filling mountain valleys, dense low-rise residential districts below, distant mountains shrouded in mist, grand fantasy sci-fi city, movie concept art, photorealistic, rich architectural details --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-4. 弧形巨墙巨型城市
+【中文提示词】
+低角度广角，巨大弧形曲面巨型城市墙体，摩天建筑向上弯曲延伸占据半边天空，建筑表面闪烁无数金色光点，厚重风沙雾气，前景平坦荒芜平原，地面零星渺小行人，压抑宏大压迫感，史诗科幻，阴沉天空，超写实，电影光影，巨大尺度差距 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Low-angle wide-angle shot, huge curved arc-shaped city wall, skyscraper buildings curve upward and occupy half of sky, countless tiny golden glowing spots on building surface, heavy sand haze, flat desolate plain foreground, tiny scattered human figures on ground, oppressive grand sense, epic sci-fi, gloomy sky, photorealistic, cinematic lighting, extreme scale difference --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-5. 山巅层叠巨构山城河谷（变体）
+【中文提示词】
+高空俯瞰，悬崖山体上的巨型层叠山城，垂直巨型晶体摩天建筑群，清晨金边阳光打在建筑立面，山间河流，水面反光，山谷雾气缭绕，山下密集成片楼房，远山朦胧，宏大奇幻科幻都市，写实渲染，电影概念美术，丰富细节 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+High aerial overlook, massive layered mountain city built on cliff mountainside, vertical giant crystal skyscraper complex, early-morning golden rim light hits building facades, mountain river, water reflection, mist curling through valleys, dense blocks of buildings downhill, hazy distant mountains, grand fantasy sci-fi metropolis, realistic render, movie concept art, intricate details --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-6. 烟雨东方巨型山门古都城，红衣孤人
+【中文提示词】
+烟雨雾天，水面湖畔，前景一名渺小红衣古装人物背对镜头，遥望山体上巨型堆叠中式古风巨构都城，巨型牌楼山门，层叠飞檐楼阁，红黑古建，万家灯火，山间浓雾弥漫，蓝灰冷调雨夜氛围，宏大东方奇幻，电影级氛围，超写实，氛围感概念原画 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Misty rainy day, lakeside shore, tiny figure in red ancient robe viewed from behind in foreground, gazing toward giant stacked ancient Chinese megacity built into mountain, gigantic arch gate, layered upturned eaves pavilions, red-black traditional architecture, warm interior lights, thick mountain fog, cool blue-grey rainy mood, grand oriental fantasy, cinematic atmosphere, photorealistic, atmospheric concept painting --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-7. 荒原遥望两座巨型浮空中式巨塔
+【中文提示词】
+灰蒙大雾，荒芜枯黄旷野，前景渺小黑衣古装人物背对镜头，远方矗立两座超巨型中式解构巨塔，巨大悬挑飞檐结构，塔身内部透出暗红色光晕，塔底淹没在茫茫白雾之中，孤寂苍凉，东方玄幻史诗，超写实，电影概念场景，巨大尺度 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Dull heavy fog, desolate yellow wilderness, tiny figure in dark ancient robe viewed from foreground back view, two colossal deconstructed ancient Chinese pagodas stand far distance, huge overhanging upturned-eave structure, dim dark-red glow inside towers, tower bases submerged in thick white mist, lonely desolate mood, oriental xuanhuan epic, photorealistic, cinematic concept scene, immense scale --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-8. 峡谷巨型山门天宫古城，孤行者
+【中文提示词】
+辽阔青草地平原，渺小古装行者背影，望向峡谷两山之间的巨型天宫古城，巨大石拱山门贯穿整座山体，层叠繁复中式宫殿楼阁，金瓦红墙，瀑布从建筑山体倾泻，山间云雾升腾，天光，宏大仙侠奇幻，超写实，电影概念图 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Vast green grass plain, tiny ancient-robed wanderer from back view, looking toward giant celestial ancient city nestled between canyon mountains, massive stone arch gate piercing through mountain mass, intricate layered Chinese palace pavilions, golden roof tiles red walls, waterfalls cascading down building mountainside, rising mountain mist, soft daylight, grand xianxia fantasy, photorealistic, movie concept art --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-9. 赛博古风巨型摩天古建，红衣人物
+【中文提示词】
+山间高地，渺小红衣古装人物背对镜头仰望，多座超巨型赛博中式摩天古建高楼，红黑古建融合巨型塔楼，内部灯火通明发光符文圆环，山脚云海浓雾，暗蓝色黄昏，东方赛博仙侠，宏大压迫构图，超写实，电影光影 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Mountain highland, tiny figure in red traditional robe viewed from behind looking upward, multiple colossal cyber-oriental ancient skyscraper towers, red-black traditional architecture blended with megatowers, bright interior lights and glowing circular rune symbols, sea-of-clouds mist at mountain foot, dark blue dusk, oriental cyber xianxia, grand oppressive composition, photorealistic, cinematic lighting --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+5-10. 云海藏地巨型山间古寺群落，孤人
+【中文提示词】
+山坡草地，前景渺小红衣僧人背影，眺望悬崖山体上层层叠叠巨型藏式古寺庙建筑群，金顶红墙，万千楼宇淹没在流动云海云雾之间，深蓝色清晨，静谧神圣，宏大奇幻写实场景，电影概念美术 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Grassy mountain slope, tiny red-robed monk figure from back view in foreground, overlooking layered giant tibetan-style temple complex built on cliff mountains, golden roofs red walls, thousands of buildings half-submerged in flowing sea-of-clouds mist, deep blue early morning, serene sacred mood, grand realistic fantasy scene, cinematic concept art --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+
+
+第六批 · 粗野主义混凝土巨构 & 废土工业（9组）
+
+6-1. 层叠混凝土三角巨构
+【中文提示词】
+巨大粗野主义混凝土巨构建筑，层层嵌套三角巨型拱洞，无尽向远方延伸，辽阔青绿色草甸，两侧缓坡草地，画面底部一个极其渺小的背对的单人，建筑风化磨损混凝土肌理，柔和黄金时刻侧逆光，电影级宽画幅，宏大崇高压迫感，超写实摄影，大景深，胶片颗粒，荒凉孤寂氛围，写实环境光，8k，细节丰富 --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Massive brutalist concrete megastructure, nested triangular giant archways receding infinitely into distance, vast green meadow, gentle grass slopes on both sides, one extremely tiny lone figure with back to camera at bottom frame, weathered worn concrete texture, soft golden hour side backlight, cinematic wide shot, sublime oppressive grand scale, photorealistic photography, deep depth of field, film grain, desolate lonely atmosphere, realistic ambient lighting, 8k, highly detailed --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-2. 层理峭壁盘山巨路
+【中文提示词】
+巨型层理峭壁巨构，波纹状分层石灰岩巨墙，一条古老石板长路沿着悬崖蜿蜒向远方，路上零星渺小行人，辽阔荒原草甸，高空俯视角度，晴朗日光，粗野主义巨型地貌建筑，写实摄影，电影氛围感，胶片颗粒，宏大孤寂，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Giant stratified cliff megastructure, rippled layered limestone giant walls, ancient stone-paved long road winding along cliff toward distance, tiny scattered pedestrians on road, vast wilderness meadow, high-angle overhead shot, bright daylight, brutalist giant landform architecture, photorealistic, cinematic atmosphere, film grain, grand solitude, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-3. 倾斜巨型曲面混凝土崖壁
+【中文提示词】
+无穷延伸的倾斜曲面混凝土巨构崖壁，巨大风化剥落混凝土墙面，辽阔起伏青绿色草甸，画面下方一个极其渺小站立单人，柔和漫射日光，远处层叠巨型墙体，宏大尺度对比，荒芜旷野，写实电影摄影，低饱和度，胶片颗粒，大景深，崇高孤寂感，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Endless sloped curved concrete megastructure cliff, huge weathered peeling concrete walls, rolling vast green meadow, one extremely tiny standing lone figure at lower frame, soft diffused daylight, stacked giant walls in far distance, dramatic scale contrast, desolate wilderness, cinematic photorealistic shot, low saturation, film grain, deep depth of field, sublime lonely mood, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-4. 浮空破败苏维埃巨楼
+【中文提示词】
+悬浮在空中的巨型破败苏维埃高层公寓巨构，错落破碎悬挑楼房，云层环绕，辽阔起伏黄绿色草甸，草地上散落几个渺小行人，前景坐着一个背对的渺小人物，晴朗蓝天，粗野主义废土建筑，超写实摄影，电影感，宏大荒诞，胶片颗粒，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Massive dilapidated Soviet apartment megastructure floating in sky, fragmented cantilevered block buildings, surrounding clouds, rolling yellow-green meadow, several tiny scattered pedestrians on grass, one tiny figure sitting with back to camera in foreground, clear blue sky, brutalist post-apocalyptic architecture, photorealistic, cinematic, grand absurd scale, film grain, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-5. 雪原巨型冷却塔巨构
+【中文提示词】
+冰天雪地雪原荒原，两座无比巨大废弃冷却塔巨构，风化锈蚀混凝土，积雪覆盖地面，蜿蜒雪中小径，一个穿厚大衣手持拐杖渺小行人走向巨构，阴冷清冷冬日天光，萧瑟荒芜，写实电影摄影，冷色调，胶片颗粒，宏大压迫感，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Snow covered icy wilderness tundra, two enormous abandoned cooling tower megastructures, weathered rusted concrete, snow blanketed ground, winding narrow snow path, tiny pedestrian in heavy overcoat holding cane walking toward megastructure, cold bleak winter daylight, desolate bleak mood, cinematic photorealistic, cool color palette, film grain, oppressive grand scale, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-6. 雪地巨型曲面拱型巨构
+【中文提示词】
+巨大弧形倾斜混凝土巨构拱墙，巨型粗野主义建筑，地面残雪枯黄荒草，一个渺小人物站在旷野中央，清冷冬日柔和天光，建筑表面斑驳磨损风化痕迹，宏大崇高，荒凉孤寂，超写实摄影，低饱和，胶片颗粒，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Huge curved sloped concrete megastructure arch wall, massive brutalist architecture, ground with patchy snow and dry yellow grass, one tiny lone figure standing in middle of wilderness, soft cold winter daylight, worn weathered textured building surface, sublime grand scale, desolate solitude, photorealistic, low saturation, film grain, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-7. 冰封海面倾斜崩塌巨型城市巨构
+【中文提示词】
+冰封辽阔北冰洋海面，冰原雪地，一座倾斜崩塌的巨型废弃多层城市巨构，冰雪覆盖残破楼房，冰面中央站立一个渺小旅人，远处停泊破旧帆船，寒冷薄雾，冷蓝色调，末日废土，写实电影摄影，宏大苍凉，胶片颗粒，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Vast frozen arctic sea ice plain, snow tundra, tilted collapsed giant abandoned multi-layer city megastructure, snow-covered ruined buildings, tiny lone traveler standing on ice, old derelict sailing ships anchored far away, cold mist haze, cool blue tone, post-apocalyptic wasteland, cinematic photorealistic, grand desolation, film grain, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-8. 黄昏红色工业巨型花瓣巨构
+【中文提示词】
+黄昏日落时分，铁锈红色巨型花瓣状工业巨构，巨大弯曲金属构件，前景林立老旧工厂烟囱，烟囱冒出白烟，辽阔平原草地，暮色暖橙逆光，重工业粗野主义，宏大史诗感，写实摄影，黄昏氛围感，胶片颗粒，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Sunset dusk hour, rust-red petal-shaped giant industrial megastructure, huge curved metal components, foreground full of old factory smokestacks with white smoke, vast grass plain, warm orange dusk backlight, heavy-industry brutalism, epic grand scale, photorealistic, strong dusk atmosphere, film grain, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+6-9. 赛博废土悬浮平台巨构
+【中文提示词】
+黄昏蓝调时刻，一排巨型悬浮悬臂式重工业平台巨构，底部密布管线与暗红灯光，下方山谷中低矮聚落小镇，小路上面几个渺小行人，朦胧薄雾，青蓝色冷环境光，局部暖红机械灯光，废土科幻粗野主义，电影写实，氛围感，胶片颗粒，大景深，8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+【English Prompt】
+Blue hour dusk, row of huge cantilever floating heavy-industry platform megastructures, underside dense pipelines and dim red glow lights, small settlement town in valley below, several tiny pedestrians on path, soft mist haze, cool cyan ambient light, local warm-red mechanical illumination, wasteland sci-fi brutalism, cinematic photorealistic, atmospheric depth, film grain, deep depth of field, 8k --ar 9:16 --style raw --v 8.2 --profile ou2n7ej
+
+
+
+附录 · 通用调参速查表
+效果目标	中文追加词	英文追加词
+强化巨物压迫感	 monumental scale, 人类被建筑 dwarf	 monumental scale, human dwarfed by architecture
+强化雾气氛围	体积雾，大气薄雾	volumetric fog, atmospheric haze
+人物比例过大时	人物极其渺小	human figure is extremely tiny / minuscule
+更锐利画质	锐利细节	--sharpness 15
+消除畸变	无畸变	--no distortion
+更浓郁黄昏	黄金时刻，暖橙色逆光	golden hour, warm orange backlight
+更冷调氛围	冷蓝色调，蓝调时刻	cool blue tone, blue hour

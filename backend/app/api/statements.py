@@ -33,7 +33,11 @@ async def update_statement(statement_id: int, data: StatementUpdate, db: AsyncSe
     stmt = await prompt_service.update_statement(db, statement_id, data)
     if not stmt:
         return ApiResponse(code=404, message="Statement not found")
-    return ApiResponse(data=StatementResponse.model_validate(stmt).model_dump())
+    # Return dict to avoid lazy-loading the words relationship (MissingGreenlet)
+    return ApiResponse(data={
+        "id": stmt.id, "prompt_id": stmt.prompt_id, "text_en": stmt.text_en,
+        "text_zh": stmt.text_zh, "sort_order": stmt.sort_order, "type_id": stmt.type_id, "words": []
+    })
 
 
 @router.delete("/statements/{statement_id}")

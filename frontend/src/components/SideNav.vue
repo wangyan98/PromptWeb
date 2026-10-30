@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import { LayoutGrid, BookOpen, NotebookPen, Settings, Palette, type LucideIcon } from 'lucide-vue-next'
 
 const route = useRoute()
 
-const navItems = [
-  { label: '展示', to: '/prompts', icon: '📋' },
-  { label: '语句本', to: '/statements', icon: '📖' },
-  { label: '单词本', to: '/words', icon: '📝' },
-  { label: '管理', to: '/manage', icon: '⚙️' },
+const navItems: { label: string; to: string; icon: LucideIcon }[] = [
+  { label: '展示', to: '/prompts', icon: LayoutGrid },
+  { label: '语句本', to: '/statements', icon: BookOpen },
+  { label: '单词本', to: '/words', icon: NotebookPen },
+  { label: '管理', to: '/manage', icon: Settings },
 ]
 </script>
 
 <template>
   <aside class="side-nav">
     <div class="logo">
-      <span class="logo-icon">🎨</span>
+      <span class="logo-icon"><Palette :size="22" /></span>
       <span class="logo-text">PromptWeb</span>
     </div>
     <nav class="nav-links">
@@ -25,7 +26,7 @@ const navItems = [
         class="nav-item"
         :class="{ active: route.path.startsWith(item.to) }"
       >
-        <span class="nav-icon">{{ item.icon }}</span>
+        <span class="nav-icon"><component :is="item.icon" :size="18" :stroke-width="1.8" /></span>
         <span class="nav-label">{{ item.label }}</span>
       </RouterLink>
     </nav>

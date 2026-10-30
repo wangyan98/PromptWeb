@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 const props = defineProps<{
   modelValue: number
@@ -54,7 +55,7 @@ function onInput(e: Event) {
 
 <template>
   <div class="page-nav" v-if="total > pageSize">
-    <button class="btn btn-sm" :disabled="modelValue <= 1" @click="goPrev">上一页</button>
+    <button class="btn btn-sm" :disabled="modelValue <= 1" @click="goPrev"><ChevronLeft :size="14" /> 上一页</button>
 
     <div class="page-jump">
       <input
@@ -68,7 +69,7 @@ function onInput(e: Event) {
       <span class="page-total">{{ totalPages }}</span>
     </div>
 
-    <button class="btn btn-sm" :disabled="modelValue >= totalPages" @click="goNext">下一页</button>
+    <button class="btn btn-sm" :disabled="modelValue >= totalPages" @click="goNext">下一页 <ChevronRight :size="14" /></button>
   </div>
 </template>
 

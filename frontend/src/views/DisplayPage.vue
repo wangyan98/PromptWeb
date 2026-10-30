@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, provide } from 'vue'
 import { useRoute } from 'vue-router'
+import { ClipboardList, ImageIcon } from 'lucide-vue-next'
 import { promptsApi, type PromptListItem, type PromptDetail, type PaginatedResponse } from '@/api/prompts'
 import SearchBar from '@/components/SearchBar.vue'
 import PageNav from '@/components/PageNav.vue'
@@ -130,7 +131,7 @@ function truncate(text: string, max: number): string {
           >
             <div class="list-row-thumb">
               <img v-if="item.thumbnail_url" :src="item.thumbnail_url" class="thumb-img" alt="" />
-              <div v-else class="thumb-placeholder">🖼️</div>
+              <div v-else class="thumb-placeholder"><ImageIcon :size="16" :stroke-width="1.6" /></div>
             </div>
             <div class="list-row-content">
               <div class="list-row-en">{{ truncate(item.text_en_full, 100) }}</div>
@@ -166,7 +167,7 @@ function truncate(text: string, max: number): string {
         </template>
         <template v-else>
           <div class="detail-placeholder">
-            <div class="placeholder-icon">📋</div>
+            <div class="placeholder-icon"><ClipboardList :size="40" :stroke-width="1.4" /></div>
             <p>选择一个 Prompt 查看详情</p>
           </div>
         </template>

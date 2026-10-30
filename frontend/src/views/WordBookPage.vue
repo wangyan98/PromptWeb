@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import PageNav from '@/components/PageNav.vue'
+import { NotebookPen } from 'lucide-vue-next'
 import { globalApi, type GlobalWordItem, type GlobalPaginatedResponse } from '@/api/global'
 import { useSettingsStore, type WordCardDisplayMode } from '@/stores/settings'
 import WordCardGrid from '@/components/WordCardGrid.vue'
@@ -50,7 +51,7 @@ const modes: { key: WordCardDisplayMode; label: string }[] = [
 
 <template>
   <div class="word-book-page">
-    <h1>📝 单词本</h1>
+    <h1 class="page-title"><NotebookPen :size="22" :stroke-width="1.8" /> 单词本</h1>
 
     <!-- Toolbar -->
     <div class="toolbar">
@@ -99,6 +100,14 @@ h1 {
   font-size: var(--font-size-xl);
   color: var(--color-text-primary);
   margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h1 :deep(svg),
+.page-title svg {
+  color: var(--color-accent);
 }
 
 .toolbar {

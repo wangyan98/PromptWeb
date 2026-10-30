@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ImageIcon } from 'lucide-vue-next'
 import type { PromptListItem } from '@/api/prompts'
 
 defineProps<{
@@ -23,7 +24,7 @@ function truncate(text: string, max: number): string {
         class="thumbnail"
         alt="thumb"
       />
-      <div v-else class="thumbnail-placeholder">🖼️</div>
+      <div v-else class="thumbnail-placeholder"><ImageIcon :size="18" :stroke-width="1.6" /></div>
     </div>
     <div class="col-en">{{ truncate(item.text_en_full, 120) }}</div>
     <div class="col-zh">{{ truncate(item.text_zh_full, 80) }}</div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PromptImageResponse } from '@/api/prompts'
 import ImageCard from './ImageCard.vue'
+import { Upload, Link2 } from 'lucide-vue-next'
 
 defineProps<{
   images: PromptImageResponse[]
@@ -27,8 +28,8 @@ const emit = defineEmits<{
       />
     </div>
     <div class="image-actions" v-if="!readonly">
-      <button class="btn btn-sm" @click="emit('upload')">📤 上传图片</button>
-      <button class="btn btn-sm" @click="emit('add-url')">🔗 添加链接</button>
+      <button class="btn btn-sm" @click="emit('upload')"><Upload :size="14" /> 上传图片</button>
+      <button class="btn btn-sm" @click="emit('add-url')"><Link2 :size="14" /> 添加链接</button>
     </div>
   </div>
 </template>

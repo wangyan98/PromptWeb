@@ -24,8 +24,11 @@ def classify_sd_tag(text):
     """Classify an SD tag into a statement type_id."""
     t = text.lower().strip()
 
+    # 20 = 参考画师: artist tags / @mentions (拆分为独立语句单独标注)
+    if t.startswith('artist:') or t.startswith('@') or t.startswith('画师:'):
+        return 20
     # 1 = 固定开头: LoRA tags, artist style references
-    if t.startswith('<lora:') or t.startswith('by ') or t.startswith('artist:'):
+    if t.startswith('<lora:') or t.startswith('by '):
         return 1
     if re.match(r'^\(?by\s', t):
         return 1

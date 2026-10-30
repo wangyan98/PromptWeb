@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { UploadCloud, FileCheck2 } from 'lucide-vue-next'
 import apiClient from '@/api/client'
 
 const router = useRouter()
@@ -8,6 +9,27 @@ const file = ref<File | null>(null)
 const preview = ref<Record<string, string[][]> | null>(null)
 const loading = ref(false)
 const importing = ref(false)
+const dragging = ref(false)
+const fileInput = ref<HTMLInputElement | null>(null)
+
+function triggerSelect() {
+  fileInput.value?.click()
+}
+
+function onFileChange(e: Event) {
+  const input = e.target as HTMLInputElement
+  file.value = input.files?.[0] || null
+  preview.value = null
+}
+
+function onDrop(e: DragEvent) {
+  dragging.value = false
+  const dropped = e.dataTransfer?.files?.[0]
+  if (dropped && /\.(xlsx|xls)$/i.test(dropped.name)) {
+    file.value = dropped
+    preview.value = null
+  }
+}
 
 async function analyze() {
   if (!file.value) return
@@ -67,13 +89,39 @@ async function confirmImport(sheetName: string) {
 
 <template>
   <div class="import-page">
-    <div class="upload-zone">
+    <div
+      class="upload-zone"
+      :class="{ 'upload-zone--dragging': dragging }"
+      @click="triggerSelect"
+      @dragover.prevent="dragging = true"
+      @dragleave.prevent="dragging = false"
+      @drop.prevent="onDrop"
+    >
       <input
+        ref="fileInput"
         type="file"
         accept=".xlsx,.xls"
-        @change="(e) => { file = (e.target as HTMLInputElement).files?.[0] || null; preview = null }"
+        style="display: none"
+        @change="onFileChange"
       />
-      <button class="btn btn-primary" :disabled="!file || loading" @click="analyze">
+      <div class="upload-icon">
+        <UploadCloud :size="32" :stroke-width="1.5" />
+      </div>
+      <div class="upload-text" v-if="!file">
+        <strong>点击选择或拖拽 Excel 文件到此处</strong>
+        <span>支持 .xlsx / .xls 格式</span>
+      </div>
+      <div class="upload-text upload-text--file" v-else>
+        <FileCheck2 :size="18" class="file-check" />
+        <strong>{{ file.name }}</strong>
+        <span class="change-file">点击更换文件</span>
+      </div>
+      <button
+        v-if="file"
+        class="btn btn-primary"
+        :disabled="loading"
+        @click.stop="analyze"
+      >
         {{ loading ? '解析中...' : '解析文件' }}
       </button>
     </div>
@@ -119,9 +167,57 @@ async function confirmImport(sheetName: string) {
 
 .upload-zone {
   display: flex;
-  gap: var(--space-md);
+  flex-direction: column;
   align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
   margin-bottom: var(--space-xl);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--border-radius-lg, 12px);
+  background: var(--color-bg-secondary);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.upload-zone:hover,
+.upload-zone--dragging {
+  border-color: var(--color-accent);
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.upload-icon {
+  color: var(--color-accent);
+  opacity: 0.85;
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.upload-text strong {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.upload-text--file {
+  flex-direction: row;
+  gap: 8px;
+}
+
+.file-check {
+  color: var(--color-accent);
+}
+
+.change-file {
+  color: var(--color-text-muted);
 }
 
 .preview-section {
