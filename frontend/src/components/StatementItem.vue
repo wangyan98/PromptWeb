@@ -27,6 +27,16 @@ const isHighlighted = computed(() => highlightedStatementId?.value === props.sta
 const typeInfo = computed(() => typeStore.getType(props.statement.type_id))
 const typeName = computed(() => typeInfo.value?.name || '未分类')
 const typeColor = computed(() => typeInfo.value?.color || '#3b82f6')
+// 按背景亮度自动选黑/白字，避免深色分类标签文字看不清
+const typeTextColor = computed(() => {
+  const hex = (typeColor.value || '').replace('#', '')
+  if (hex.length !== 6) return '#000000'
+  const r = parseInt(hex.slice(0, 2), 16)
+  const g = parseInt(hex.slice(2, 4), 16)
+  const b = parseInt(hex.slice(4, 6), 16)
+  const luma = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return luma > 0.6 ? '#000000' : '#ffffff'
+})
 
 function onWordClick(wordId: number, event: Event) {
   event.stopPropagation()
@@ -67,7 +77,7 @@ function renderChunks(statement: StatementResponse) {
   >
     <div class="stmt-header">
       <span class="stmt-index">#{{ index + 1 }}</span>
-      <span class="stmt-type-badge" :style="{ backgroundColor: typeColor || '#3b82f6' }">
+      <span class="stmt-type-badge" :style="{ backgroundColor: typeColor || '#3b82f6', color: typeTextColor }">
         {{ typeName || '未分类' }}
       </span>
     </div>
