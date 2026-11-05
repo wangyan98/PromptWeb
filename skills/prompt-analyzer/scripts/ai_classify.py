@@ -36,6 +36,8 @@ EXISTING = [
     "色彩色调", "环境背景", "分镜", "动作", "构图", "运镜", "光影",
     "导演风格", "特效", "全局设定", "角色技能", "负面提示词", "参考画师",
     "参考素材", "音效台词", "角色设定",
+    "结构标记", "参数设置", "画面文字", "设定图", "情绪表情", "图像编辑",
+    "使用说明", "氛围基调",
 ]
 
 # 新分类配色池（按顺序取用）
@@ -49,12 +51,24 @@ def sh(args, **kw):
     return subprocess.run(args, cwd=CWD, capture_output=True, text=True, **kw)
 
 
+def type_filter_sql(a):
+    """生成 WHERE 片段：按源分类名过滤，默认未分类。"""
+    if a.from_types:
+        names = ",".join("'" + n.replace("'", "''") + "'" for n in a.from_types.split(","))
+        return (f" s join statement_types t on t.id=s.type_id where t.name = any(array[{names}]) ",
+                f" s.type_id in (select id from statement_types where name = any(array[{names}])) ")
+    return " s where s.type_id is null ", " s.type_id is null "
+
+
 def cmd_split(a):
-    os.makedirs(WORK, exist_ok=True)
-    os.makedirs(OUT, exist_ok=True)
+    work = a.work
+    out = os.path.join(work, "out")
+    os.makedirs(work, exist_ok=True)
+    os.makedirs(out, exist_ok=True)
+    where, _ = type_filter_sql(a)
     sql = (
-        "select md5(text_zh) || E'\\t' || replace(regexp_replace(text_zh, '[\\r\\n\\t]+', ' ', 'g'), "
-        "'\\\\', '/') from statements where type_id is null group by 1 order by 1;"
+        "select md5(s.text_zh) || E'\\t' || replace(regexp_replace(s.text_zh, '[\\r\\n\\t]+', ' ', 'g'), "
+        f"'\\\\', '/') from statements{where} group by 1 order by 1;"
     )
     r = sh(PSQL + ["-t", "-A", "-c", sql])
     if r.returncode != 0:
@@ -68,7 +82,7 @@ def cmd_split(a):
     for i in range(0, len(rows), bs):
         chunk = rows[i:i + bs]
         idx = i // bs + 1
-        path = os.path.join(WORK, f"batch-{idx:03d}.jsonl")
+        path = os.path.join(work, f"batch-{idx:03d}.jsonl")
         with open(path, "w", encoding="utf-8") as f:
             for ln in chunk:
                 h, txt = ln.split("\t", 1)
@@ -77,16 +91,17 @@ def cmd_split(a):
                     txt = txt[:a.max_chars] + "…"
                 f.write(json.dumps({"h": h, "t": txt}, ensure_ascii=False) + "\n")
         n = idx
-    print(json.dumps({"batches": n, "dir": WORK, "size": bs}))
+    print(json.dumps({"batches": n, "dir": work, "size": bs}))
 
 
 def cmd_apply(a):
-    files = sorted(f for f in os.listdir(OUT) if f.endswith(".json")) if os.path.isdir(OUT) else []
+    out = os.path.join(a.work, "out")
+    files = sorted(f for f in os.listdir(out) if f.endswith(".json")) if os.path.isdir(out) else []
     mapping = {}
     bad = []
     for fn in files:
         try:
-            d = json.load(open(os.path.join(OUT, fn), encoding="utf-8"))
+            d = json.load(open(os.path.join(out, fn), encoding="utf-8"))
         except Exception as e:
             bad.append((fn, str(e)))
             continue
@@ -120,23 +135,44 @@ def cmd_apply(a):
             maxsort = max(maxsort, int(so))
     added = []
     ci = 0
-    for name in cnt:
-        if name in exist:
-            continue
-        maxsort += 1
-        color = COLORS[ci % len(COLORS)]
-        ci += 1
-        esc = name.replace("'", "''")
-        sql = (f"insert into statement_types(name,color,sort_order) values('{esc}','{color}',{maxsort}) "
-               f"on conflict (name) do nothing;")
-        rr = sh(PSQL + ["-q", "-c", sql])
-        if rr.returncode != 0:
-            print(f"建分类失败 {name}: {rr.stderr}", file=sys.stderr)
-        else:
-            added.append(name)
+    # 可选：把新分类插到某个已有分类之后（后续分类顺次后移）
+    base_sort = None
+    if a.insert_after:
+        rr = sh(PSQL + ["-t", "-A", "-c",
+                        f"select sort_order from statement_types where name='{a.insert_after.replace(chr(39), chr(39)*2)}';"])
+        if rr.stdout.strip().isdigit():
+            base_sort = int(rr.stdout.strip())
+    new_names = [n for n in cnt if n not in exist]
+    if base_sort is not None and new_names:
+        sh(PSQL + ["-q", "-c",
+                   f"update statement_types set sort_order = sort_order + {len(new_names)} where sort_order > {base_sort};"])
+        for idx, name in enumerate(new_names):
+            esc = name.replace("'", "''")
+            color = COLORS[ci % len(COLORS)]
+            ci += 1
+            sql = (f"insert into statement_types(name,color,sort_order) values('{esc}','{color}',{base_sort + idx + 1}) "
+                   f"on conflict (name) do nothing;")
+            rr = sh(PSQL + ["-q", "-c", sql])
+            if rr.returncode != 0:
+                print(f"建分类失败 {name}: {rr.stderr}", file=sys.stderr)
+            else:
+                added.append(name)
+    else:
+        for name in new_names:
+            maxsort += 1
+            color = COLORS[ci % len(COLORS)]
+            ci += 1
+            esc = name.replace("'", "''")
+            sql = (f"insert into statement_types(name,color,sort_order) values('{esc}','{color}',{maxsort}) "
+                   f"on conflict (name) do nothing;")
+            rr = sh(PSQL + ["-q", "-c", sql])
+            if rr.returncode != 0:
+                print(f"建分类失败 {name}: {rr.stderr}", file=sys.stderr)
+            else:
+                added.append(name)
     print(f"新建分类 {len(added)} 个: {', '.join(added)}")
 
-    # 2. 写回语句（按文本 md5 匹配，一次 update 全部同文本语句）
+    # 2. 写回语句（按文本 md5 匹配，一次 update 全部同文本语句；仅限源分类内）
     r = sh(PSQL + ["-t", "-A", "-F", "\t", "-c", "select id, name from statement_types;"])
     tid = {}
     for ln in r.stdout.strip().split("\n"):
@@ -144,6 +180,7 @@ def cmd_apply(a):
             i, nm = ln.split("\t", 1)
             tid[nm] = int(i)
 
+    _, cond = type_filter_sql(a)
     lines = []
     for h, name in mapping.items():
         t = tid.get(name)
@@ -155,7 +192,7 @@ def cmd_apply(a):
     for i in range(0, len(lines), chunk):
         vals = ",".join(lines[i:i + chunk])
         sql = (f"update statements s set type_id = v.t from (values {vals}) as v(h,t) "
-               f"where md5(s.text_zh) = v.h and s.type_id is null;")
+               f"where md5(s.text_zh) = v.h and{cond};")
         rr = sh(PSQL + ["-q", "-c", sql])
         if rr.returncode != 0:
             print(f"更新失败: {rr.stderr[:300]}", file=sys.stderr)
@@ -173,10 +210,15 @@ def main():
     s = sub.add_parser("split")
     s.add_argument("--batch-size", type=int, default=500)
     s.add_argument("--max-chars", type=int, default=400)
+    s.add_argument("--from-types", help="逗号分隔的源分类名（默认导出未分类语句）")
+    s.add_argument("--work", default="/tmp/typejob", help="批次工作目录")
     s.set_defaults(func=cmd_split)
     p = sub.add_parser("apply")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--write", action="store_true")
+    p.add_argument("--from-types", help="只回写这些源分类内的语句（默认只动未分类）")
+    p.add_argument("--insert-after", help="新分类插入到该分类名之后（后续 sort 顺移）")
+    p.add_argument("--work", default="/tmp/typejob", help="批次工作目录")
     p.set_defaults(func=cmd_apply)
     a = ap.parse_args()
     a.func(a)
