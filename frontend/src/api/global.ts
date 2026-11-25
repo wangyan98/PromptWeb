@@ -24,6 +24,8 @@ export interface GlobalWordItem {
   total_count: number
   types: WordTypeInfo[]
   prompt_ids: number[]
+  source: 'statement' | 'danbooru' | 'both'
+  sources: string[]
 }
 
 export interface GlobalPaginatedResponse<T> {
@@ -48,6 +50,7 @@ export const globalApi = {
 
   getWords(params: {
     search?: string
+    source?: 'all' | 'statement' | 'danbooru'
     page?: number
     page_size?: number
   } = {}) {

@@ -13,11 +13,19 @@ const total = ref(0)
 const page = ref(1)
 const pageSize = 12
 const search = ref('')
+const source = ref<'all' | 'statement' | 'danbooru'>('all')
 const loading = ref(false)
+
+const sources: { key: 'all' | 'statement' | 'danbooru'; label: string }[] = [
+  { key: 'all', label: '全部' },
+  { key: 'statement', label: '语句提取' },
+  { key: 'danbooru', label: 'Danbooru' },
+]
 
 onMounted(() => loadData())
 
 watch(search, () => { page.value = 1; loadData() })
+watch(source, () => { page.value = 1; loadData() })
 watch(page, () => loadData())
 
 async function loadData() {
@@ -25,6 +33,7 @@ async function loadData() {
   try {
     const res = await globalApi.getWords({
       search: search.value,
+      source: source.value,
       page: page.value,
       page_size: pageSize,
     })
@@ -63,6 +72,19 @@ const modes: { key: WordCardDisplayMode; label: string }[] = [
         @keyup.enter="loadData"
       />
       <span class="total-label">共 {{ total }} 词</span>
+
+      <!-- Source switcher -->
+      <div class="mode-switcher">
+        <button
+          v-for="s in sources"
+          :key="s.key"
+          class="mode-btn"
+          :class="{ 'mode-btn--active': source === s.key }"
+          @click="source = s.key"
+        >
+          {{ s.label }}
+        </button>
+      </div>
 
       <!-- Mode switcher -->
       <div class="mode-switcher">

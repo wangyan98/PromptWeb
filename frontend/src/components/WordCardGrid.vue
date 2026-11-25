@@ -85,7 +85,7 @@ const modeLabel = (): string => {
 
       <span class="word-en">{{ word.word_en }}</span>
       <span class="word-zh">{{ word.word_zh }}</span>
-      <span class="word-count">{{ word.total_count }}次</span>
+      <span v-if="word.source !== 'danbooru'" class="word-count">{{ word.total_count }}次</span>
 
       <!-- Type tags row (solid mode) -->
       <div
